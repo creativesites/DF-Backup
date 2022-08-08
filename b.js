@@ -1,42 +1,21 @@
 const puppeteerExtra = require('puppeteer-extra');
-const stealthPlugin = require('puppeteer-extra-plugin-stealth');
 const puppeteer = require('puppeteer');
-const path = require('path');
 const fs = require('fs');
-const moment = require('moment');
-const Sequence = require('sequence-js')
-const findRemoveSync = require('find-remove')
-const {
-    readdirSync,
-    rename
-} = require('fs');
+const cheerio = require('cheerio');
 const express = require('express');
 const createError = require('http-errors');
+const axios = require('axios')
 const logger = require('morgan');
 const {
     resolve
 } = require('path');
-const downloadPath = path.resolve('./backup');
-const {
-    GoogleSpreadsheet
-} = require('google-spreadsheet');
-const CREDENTIALS = require('./sheets.json');
-const RESPONSES_SHEET_ID = '1gza3a05wWV4bt7c9pMyJsm43hpbCpPx84Uctym2zjOg';
-const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
-const {Storage} = require('@google-cloud/storage');
-const storage = new Storage({
-    keyFilename: './sheets.json',
-  });
-  let bucketName = 'df-update-storage'
-  //let bucketName =  moment().format("YYMMDDHH:mm")
+const writeStream = fs.createWriteStream('post.csv');
+const jsonfile = require('jsonfile')
+var asyncLoop = require('node-async-loop');
 
-let changeAgents1 = [];
-let doneBackup = false;
-let doneRename = false;
-let doneUpload = false;
-let doneDelete = false;
+const file = './data.json'
+let changeAgents1 = ['00-005-LtoyoBellR-8184939734', '00-002-CfordNapa-8184929153', '00-003-XhondTaz-8184929306', '300-AutoPorX-816-281-6544', '330-SansKia_-818-493-9849', '331-SansMits-818-493-9971', '332-SansNiss-818-493-9961'];
 const zipDirPath = resolve(__dirname, 'backup');
-const files = readdirSync(zipDirPath);
 var app = express();
 app.use(function (err, req, res, next) {
 
@@ -46,8 +25,11 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-const PORT = 3006;
+const { GoogleSpreadsheet } = require('google-spreadsheet');
+const CREDENTIALS = require('./sheets.json');
+const RESPONSES_SHEET_ID = '1gza3a05wWV4bt7c9pMyJsm43hpbCpPx84Uctym2zjOg';
+const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
+const PORT = 3004;
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -55,7 +37,9 @@ app.use(express.urlencoded({
     extended: false
 }));
 
-
+function getIndex(ab){
+    return (ab / 2) + 1
+}
 //  /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
 //  /usr/bin/chromium-browser
 async function run() {
@@ -100,11 +84,19 @@ async function run() {
             return new Promise(async(resolve, reject) => {
                 doneBackup = false;
             await page1.waitForTimeout(5000);
-            //await page1.waitForTimeout(10000);
-            console.log('BACKUP')
+            
             try {
                 for await (const el of changeAgents1) {
-                    console.log(`Backing up ${el}`)
+                    
+                    
+
+                }
+                resolve()
+                
+                asyncLoop(changeAgents1,async function (el, next)
+                {
+                    console.log(`running ${el}`)
+                    let agent = el
                     //await UpdateSheet("G4", `Backup ${el} Started`)
                     //select select agent button
                     await page1.waitForTimeout(9000);
@@ -124,104 +116,166 @@ async function run() {
                         });
                         //await scrollIntoViewIfNeeded(element, timeout);
                         await page1.waitForTimeout(1000);
-                        console.log('selecting agent to copy from')
+                        console.log('selecting agent')
                         await page1.click(`aria/${el}`);
                         await page1.waitForTimeout(10000);
-                        //click settings
-                        await page1.waitForSelector(`#link-settings-agent`, {
+                        //click history
+                        await page1.waitForSelector(`#link-history`, {
                             timeout: 5000
                         });
                         //await scrollIntoViewIfNeeded(element, timeout);
                         await page1.waitForTimeout(1500);
-                        console.log('selecting settings')
-                        await page1.click(`#link-settings-agent`);
-
-                        //click import/export
-                        await page1.waitForSelector(`aria/Export and Import`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(1500);
-                        console.log('selecting import/export')
-                        await page1.click(`aria/Export and Import`);
-
-                        //click export button
-
-                        console.log('selecting export button')
-                        await page1.waitForTimeout(1000);
-                        const client = await page1.target().createCDPSession();
-                        await client.send("Page.setDownloadBehavior", {
-                            behavior: "allow",
-                            downloadPath: downloadPath
-                        });
-
-                        await page1.waitForSelector(`aria/EXPORT AS ZIP`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(2000);
-                        await page1.click(`aria/EXPORT AS ZIP`)
-
-
-                        //await UpdateSheet("G4", `Backup ${el} Complete`)
+                        console.log('selecting history')
+                        await page1.click(`#link-history`);
                         await page1.waitForTimeout(15000);
+                        //click import/export
                         
+                        await setTimeout(async() => {
+                            console.log('starting')
+                            const html = await page1.evaluate(()=>{
+                                return{
+                                    html: document.documentElement.innerHTML
+                                }
+                            })
+                            const $ = cheerio.load(html.html);
+                            
+                             $('.flex-85').each(async (i, el) => {
+                                let zx;
+                                let convArr = [];
+                                setTimeout(async() => {
+                                    
+                                    let convObj = {}
+                                    if(i === 0){}
+                                    else{
+                                        
+                                        let title;
+                                        let size;
+                                        let date;
+                                        let err;
+                                        convObj.CHATBOT = agent
+                                        convObj.SOURCE = $(el)
+                                            .find('span.name.ng-binding')
+                                            .text()
+                                            .replace(/\s\s+/g, '');
+                                        // convObj.size = $(el)
+                                        //     .find('span.size.ng-binding')
+                                        //     .text()
+                                        //     .replace(/\s\s+/g, '');
+                                        
+                                        $('.flex-15').each((i, el) => {
+                                            let ddt = $(el)
+                                                .find('span.date.ng-binding')
+                                                .text()
+                                                .replace(/(<([^>]+)>)/gi, "");
+                                            convObj.DATE = ddt
+                                            zx = ddt
+                                            
+                                            // convObj.err = $(el)
+                                            //     .find('.not-matched')
+                                            //     .text()
+                                        });
+                                        console.log(zx)
+                                        
+                                            let nxt = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/history/div/div[3]/conversations/div/div[${i}]/div`);
+                                            await page1.waitForTimeout(2000);
+                                            await nxt[0].click();
+                                            await page1.waitForTimeout(2000);
+                                            const html1 = await page1.evaluate(()=>{
+                                                return{
+                                                    html: document.documentElement.innerHTML
+                                                }
+                                            })
+                                            const $1 = cheerio.load(html1.html);
+                                            $1('.flex-55').each((idx, el) => {
+                                                let conv = {}
+                                                let xv = $1(el)
+                                                    .find('span.member-icon')
+                                                    .text()
+                                                    .replace(/\s\s+/g, '');
+                                                let xc = $1(el)
+                                                    .find('span.text.ng-binding')
+                                                    .text()
+                                                    .replace(/(<([^>]+)>)/gi, "")
+                                                    .replace(/(\r\n|\n|\r)/gm, "");
+                                                if(xv === 'AGENT'){convObj.AGENT = xc}
+                                                if(xv === 'USER'){convObj.USER = xc}
+                                                
+                                                
+                                                // if(xc === 'No matched intent'){
+                                                //     let iddx = getIndex(idx)
+                                                //     await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${i}) > interactions > div > div.content-section-interactions > div:nth-child(${iddx}) > div.agent.layout-align-start-center.layout-row > div.layout-align-end-center.layout-row.flex-45 > span:nth-child(3) > md-menu > md-icon`, {
+                                                //         timeout: 5000
+                                                //       })
+                                                //       console.log()
+                                                //       await page1.waitForTimeout(1000);
+                                                //       await page1.click(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${i}) > interactions > div > div.content-section-interactions > div:nth-child(${iddx}) > div.agent.layout-align-start-center.layout-row > div.layout-align-end-center.layout-row.flex-45 > span:nth-child(3) > md-menu > md-icon`)
+                                                //       await page1.waitForTimeout(1000)
+                                                //       await page1.waitForSelector('aria/Raw interaction log', {timeout: 5000})
+                                                //       await page1.waitForTimeout(1000)
+                                                //       await page1.click('aria/Raw interaction log')
+                                                //       //CodeMirror-code
+                                                      
+                                                // }
+                                                
+                                                // Write Row To CSV
+                                                //writeStream.write(`${title}, ${date} \n`);
+                                            });
+                                            $1('.flex-45').each((idx, el) => {
+                                                
+                                                let xb = $1(el)
+                                                    .find('span.date.ng-binding')
+                                                    .text()
+                                                    .replace(/(<([^>]+)>)/gi, "")
+                                                    .replace(/(\r\n|\n|\r)/gm, "");
+                                                convObj.TIME = xb
+                                               
+                                            });
+                                            
+                                            convArr.push(convObj)
+                                            var data = JSON.stringify(convArr);
+                                            console.log(convArr)
+                                            var config = {
+                                                method: 'post',
+                                                url: 'https://script.google.com/macros/s/AKfycbw9OYAd3AQd4IBPBjpWovKVbUJwUrnnUSmAZlNNAGwNbaCgMKODo9iFAN_AADMAUZvh/exec?gid=1258845929',
+                                                headers: {
+                                                'Content-Type': 'application/json'
+                                                },
+                                                data: data
+                                            };
+
+                                            // axios(config)
+                                            //     .then(function (response) {
+                                            //     console.log(JSON.stringify(response.data));
+                                            //     })
+                                            //     .catch(function (error) {
+                                            //     console.log(error);
+                                            //     });
+                                        
+                                            
+                                            
+                                        
+                                        
+                                    }
+                                    
+                                }, i * 10000);
+                                
+                                
+                                
+                                // Write Row To CSV
+                                //writeStream.write(`${title}, ${size} ${date}, ${err} \n`);
+                                //
+                            }); 
+                        }, 45000);
+       // console.log('Scraping Done...');
                     } catch (error) {
-                        console.log('agent already selected')
-                        await page1.reload({
-                            waitUntil: ["networkidle0", "domcontentloaded"]
-                        });
-                        await page1.waitForTimeout(15000);
-                        await page1.waitForTimeout(10000);
-                        //click settings
-                        await page1.waitForSelector(`#link-settings-agent`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(1500);
-                        console.log('selecting settings')
-                        await page1.click(`#link-settings-agent`);
-
-                        //click import/export
-                        await page1.waitForSelector(`aria/Export and Import`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(1500);
-                        console.log('selecting import/export')
-                        await page1.click(`aria/Export and Import`);
-
-                        //click export button
-
-                        console.log('selecting export button')
-                        await page1.waitForTimeout(1000);
-                        const client = await page1.target().createCDPSession();
-                        await client.send("Page.setDownloadBehavior", {
-                            behavior: "allow",
-                            downloadPath: downloadPath
-                        });
-
-                        await page1.waitForSelector(`aria/EXPORT AS ZIP`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(2000);
-                        await page1.click(`aria/EXPORT AS ZIP`)
-
-
-
-                        await page1.waitForTimeout(15000);
-
-                        //await UpdateSheet("G4", `Backup ${el} Complete`)
-                        await page1.waitForTimeout(3000);
+                        console.log(error)
                         
                     }
-                    
-
-                }
-                resolve()
-                
-                
+                    next();
+                }, function ()
+                {
+                    console.log('Finished!');
+                });
                 
             } catch (error) {
                 console.log(error)
@@ -232,7 +286,7 @@ async function run() {
         }
         
         await runBackup()
-        .then(async()=>{await browser.close()})
+        //.then(async()=>{await browser.close()})
         
         
 
@@ -256,199 +310,12 @@ app.post('/backup', (req, res) => {
     res.send('Backup Started')
 
 })
-app.post('/rename', (req, res) => {
-    const myPromise2 = new Promise((resolve, reject) => {
-        console.log('renaming')
-        let dtTime = moment().format("YYMMDD-HHmm")
-        try {
-            files.map(async (file) => {
-                let nm = file.slice(0,-4)
-                await rename(
-                    zipDirPath + `/${file}`,
-                    zipDirPath + `/${nm}-${dtTime}.zip`,
-                    err => console.log(err)
-                );
 
-
-            })
-            resolve()
-            
-        } catch (error) {
-            console.log(error)
-            reject()
-            
-        }
-    });
-    myPromise
-    .then(()=>{
-        res.status(200).json({
-            message: "Remane Complete"
-        })
-    })
-    .catch(()=>{
-        res.status(401).json({
-            message: "Error occured",
-            error: error.mesage,
-        })
-    })
-    
-
-})
-app.post('/upload',(req, res)=>{
-    const myPromise3 = new Promise(async(resolve, reject) => {
-        console.log('uploading')
-        try {
-            await files.map(async (file) => {
-                let filename = zipDirPath + `/${file}`
-                await storage.bucket(bucketName).upload(filename, {
-                    gzip: true,
-                    metadata: {
-                        cacheControl: 'public, max-age=31536000',
-                    },
-                });
-        
-                console.log(`${filename} uploaded to ${bucketName}.`);
-                doneUpload = true;
-            })
-            resolve()
-        } catch (error) {
-            reject()
-        }
-    });
-    myPromise3
-    .then(()=>{
-        const result = findRemoveSync('./backup', { extensions: ['.zip'] })
-        console.log(result)
-    })
-    .then(()=>{
-        res.status(200).json({
-            message: "Upload Complete"
-        })
-    })
-    .catch(()=>{
-        res.status(401).json({
-            message: "Error occured",
-            error: error.mesage,
-        })
-    })
-    
-})
 app.use(function (req, res, next) {
     next(createError(404));
 });
 
 app.listen(PORT, () => console.log(`backend running on port ${PORT}`))
 
-async function UpdateSheet(cell, cellVal) {
-    
-    await doc.useServiceAccountAuth({
-        client_email: CREDENTIALS.client_email,
-        private_key: CREDENTIALS.private_key
-    });
+run()
 
-    // load the documents info
-    await doc.loadInfo();
-
-
-    const sheet = doc.sheetsByTitle['UpdateDF'];
-    console.log(sheet.title);
-    await sheet.loadCells('G4:J4');
-    const c6 = await sheet.getCellByA1(cell);
-    c6.value = cellVal
-    await sheet.saveUpdatedCells();
-    console.log('update written to sheet')
-}
-async function ResetSheet() {
-    await doc.useServiceAccountAuth({
-        client_email: CREDENTIALS.client_email,
-        private_key: CREDENTIALS.private_key
-    });
-
-    // load the documents info
-    await doc.loadInfo();
-
-
-    const sheet = doc.sheetsByTitle['UpdateDF'];
-    console.log(sheet.title);
-    await sheet.loadCells('G4:O4');
-    const g4 = await sheet.getCellByA1('G4');
-    const h4 = await sheet.getCellByA1('H4');
-    const i4 = await sheet.getCellByA1('I4');
-    const j4 = await sheet.getCellByA1('J4');
-    const k4 = await sheet.getCellByA1('K4');
-    g4.value = ''
-    h4.value = ''
-    i4.value = ''
-    j4.value = ''
-    k4.value = ''
-    await sheet.saveUpdatedCells();
-    console.log('update written to sheet')
-}
-async function createBucket() {
-    // Creates the new bucket
-    await storage.createBucket(bucketName);
-    console.log(`Bucket ${bucketName} created.`);
-  }
-  
-  
-async function UploadFiles() {
-    //await createBucket().catch(console.error);
-    doneUpload = false
-    console.log('uploading')
-    files.map(async (file) => {
-        let filename = zipDirPath + `/${file}`
-        await storage.bucket(bucketName).upload(filename, {
-            gzip: true,
-            metadata: {
-                cacheControl: 'public, max-age=31536000',
-            },
-        });
-
-        console.log(`${filename} uploaded to ${bucketName}.`);
-        doneUpload = true;
-    })
-    console.log('uploading done')
-}
-async function DeleteFiles() {
-    doneDelete = false
-    files.map(async (file) => {
-
-        let filename = zipDirPath + `/${file}`
-        try {
-            fs.unlinkSync(filename)
-            //file removed
-        } catch (err) {
-            console.error(err)
-        }
-
-        console.log(`${filename} deleted.`);
-        doneDelete = true;
-    })
-    return
-}
-async function Rename() {
-    doneRename = false;
-    console.log('renaming')
-    let dtTime = moment().format("YYMMDD-HHmm")
-    try {
-        files.map(async (file) => {
-            let nm = file.slice(0,-4)
-            await rename(
-                zipDirPath + `/${file}`,
-                zipDirPath + `/${nm}-${dtTime}.zip`,
-                err => console.log(err)
-            );
-
-
-        })
-        doneRename = true
-    } catch (error) {
-        console.log(error)
-    }
-    
-}
-//run()
-//Rename()
- //UploadFiles()
-const result = findRemoveSync('./backup', { extensions: ['.zip'] })
-console.log(result)

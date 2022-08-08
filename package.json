@@ -19,17 +19,26 @@
   "homepage": "https://github.com/creativesites/DF-Backup#readme",
   "dependencies": {
     "@google-cloud/storage": "^6.2.3",
+    "async-await-queue": "^1.2.1",
+    "async-sequencer": "^1.0.6",
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
+    "datetime-difference": "^1.0.2",
     "express": "^4.18.1",
     "find-remove": "^4.0.4",
     "fs": "^0.0.1-security",
     "google-spreadsheet": "^3.3.0",
     "http-errors": "^2.0.0",
+    "jsonfile": "^6.1.0",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
+    "node-async-loop": "^1.2.2",
+    "p-waterfall": "^3.0.0",
     "path": "^0.12.7",
     "puppeteer": "^15.5.0",
     "puppeteer-extra": "^3.3.4",
     "puppeteer-extra-plugin-stealth": "^2.11.0",
-    "sequence-js": "^0.0.3"
+    "sequence-js": "^0.0.3",
+    "sequential-async-foreach": "^1.0.4"
   }
 }
