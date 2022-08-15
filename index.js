@@ -449,6 +449,6 @@ async function Rename() {
 }
 //run()
 //Rename()
- //UploadFiles()
-const result = findRemoveSync('./backup', { extensions: ['.zip'] })
-console.log(result)
+//UploadFiles()
+// const result = findRemoveSync('./backup', { extensions: ['.zip'] })
+// console.log(result)

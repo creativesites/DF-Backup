@@ -39,6 +39,7 @@
     "puppeteer-extra": "^3.3.4",
     "puppeteer-extra-plugin-stealth": "^2.11.0",
     "sequence-js": "^0.0.3",
-    "sequential-async-foreach": "^1.0.4"
+    "sequential-async-foreach": "^1.0.4",
+    "xvfb": "^0.4.0"
   }
 }
