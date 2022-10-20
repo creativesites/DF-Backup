@@ -30,11 +30,15 @@ const storage = new Storage({
   let bucketName = 'df-update-storage'
   //let bucketName =  moment().format("YYMMDDHH:mm")
 
-let changeAgents1 = [];
+let changeAgents1 = ['00-000-0Test-DEV-DOCKER-8184929172'];
 let doneBackup = false;
-let doneRename = false;
-let doneUpload = false;
-let doneDelete = false;
+let entityName = 'milesKm';
+let entityIndex = 2
+let txtToChange = 'test-del';
+let rowVal = 2
+let rowCol = 'F'
+let pageNum = 1;
+const timeout = 5000;
 const zipDirPath = resolve(__dirname, 'backup');
 const files = readdirSync(zipDirPath);
 var app = express();
@@ -55,13 +59,9 @@ app.use(express.urlencoded({
     extended: false
 }));
 
-
-//  /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
-//  /usr/bin/chromium-browser
 async function run() {
     //puppeteerExtra.use(stealthPlugin());
     const browser = await puppeteer.launch({
-        executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         headless: false,
         defaultViewport: null,
         args: [
@@ -70,7 +70,7 @@ async function run() {
         ]
     });
 
-
+    
     const page = await browser.newPage();
     const pages = await browser.pages();
     pages[0].close();
@@ -88,26 +88,36 @@ async function run() {
             width: 1280,
             height: 600
         })
-        await page1.waitForTimeout(15000);
-        async function backUp(el){
-            
-              new Promise(async (resolve, reject) => {
-                
-              });
-            
-        }
+        await doc.useServiceAccountAuth({
+            client_email: CREDENTIALS.client_email,
+            private_key: CREDENTIALS.private_key
+        });
+    
+        // load the documents info
+        await doc.loadInfo();
+    
+    
+        // const sheet = doc.sheetsByTitle['Update-Entities'];
+        // console.log(sheet.title);
+        // await sheet.loadCells('E3:F3');
+        await page1.waitForTimeout(10000);
+        
         async function runBackup() {
             return new Promise(async(resolve, reject) => {
                 doneBackup = false;
-            await page1.waitForTimeout(5000);
-            //await page1.waitForTimeout(10000);
+                
             console.log('BACKUP')
             try {
-                for(let el = 1; el < 37; el ++) {
-                    console.log(`Backing up ${el}`)
-                    //await UpdateSheet("G4", `Backup ${el} Started`)
+                for await (const el of changeAgents1) {
+                    console.log(`Updating ${el}`)
+                    // let rwCol = rowCol + rowVal
+                    // const g4 = await sheet.getCellByA1(rwCol);
+                    // g4.value = `Updating ${el}`
+                    // await sheet.saveUpdatedCells();
+                    console.log('update written to sheet')
+                    //await UpdateSheet(rwCol, `Updating ${el} Started`)
                     //select select agent button
-                    await page1.waitForTimeout(9000);
+                    await page1.waitForTimeout(5000);
                     await page1.waitForSelector('#agents-dropdown-toggle > span.icon-right.icon-caret', {
                         timeout: 5000
                     });
@@ -118,105 +128,138 @@ async function run() {
                     try {
                         //select agent
                         //scroll if needed
-                        //  /html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[1]/a
-                        //  /html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[2]/a
                         await page1.waitForTimeout(5000);
-                        
+                        await page1.waitForSelector(`aria/${el}`, {
+                            timeout: 5000
+                        });
                         //await scrollIntoViewIfNeeded(element, timeout);
-                        
+                        await page1.waitForTimeout(1000);
                         console.log('selecting agent to copy from')
-                        await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${el}]/a`)
-                        let agntToBackup = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${el}]/a`)
-                        await page1.waitForTimeout(1000);
-                        await agntToBackup[0].click()
+                        await page1.click(`aria/${el}`);
                         await page1.waitForTimeout(10000);
-                        //click settings
-                        await page1.waitForSelector(`#link-settings-agent`, {
+                        //click entities
+                        await page1.waitForSelector(`#link-list-entities > span.dl`, {
                             timeout: 5000
                         });
-                        //await scrollIntoViewIfNeeded(element, timeout);
                         await page1.waitForTimeout(1500);
-                        console.log('selecting settings')
-                        await page1.click(`#link-settings-agent`);
-
-                        //click import/export
-                        await page1.waitForSelector(`aria/Export and Import`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(1500);
-                        console.log('selecting import/export')
-                        await page1.click(`aria/Export and Import`);
-
-                        //click export button
-
-                        console.log('selecting export button')
-                        await page1.waitForTimeout(1000);
-                        const client = await page1.target().createCDPSession();
-                        await client.send("Page.setDownloadBehavior", {
-                            behavior: "allow",
-                            downloadPath: downloadPath
-                        });
-
-                        await page1.waitForSelector(`aria/EXPORT AS ZIP`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(2000);
-                        await page1.click(`aria/EXPORT AS ZIP`)
-
-
-                        //await UpdateSheet("G4", `Backup ${el} Complete`)
-                        await page1.waitForTimeout(15000);
-                        
+                        console.log('clicking entities button')
+                        await page1.click(`#link-list-entities > span.dl`)
+                        await page1.waitForTimeout(5000);
+                        switch (pageNum) {
+                            case 1:
+                                //select entity
+                                await page1.waitForSelector(`aria/${entityName}`)
+                                await page1.waitForTimeout(1000);
+                                await page1.click(`aria/${entityName}`)
+                                console.log('clicked ent nm')
+                                //select entity val
+                                // /html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[1]
+                                await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]`)
+                                let entToChange = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]`);
+                                await page1.waitForTimeout(2000)
+                                await entToChange[0].click()
+                            //  /html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[2]/span[1]/span/div/input[3]
+                                await page1.waitForTimeout(1000);
+                                await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]/span[1]/span/div/input[3]`);
+                                await page1.waitForTimeout(1000);
+                                let entInpt = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]/span[1]/span/div/input[3]`)
+                                await entInpt[0].click()
+                                await entInpt[0].type(txtToChange)
+                                
+                                await page.waitForTimeout(1500);
+                                await page.keyboard.press('Enter');
+                                await page1.waitForTimeout(1000)
+                                await page1.waitForSelector('aria/SAVE')
+                                await page1.click('aria/SAVE')
+                                g4.value = `Updating ${el} DONE`
+                                await sheet.saveUpdatedCells();
+                                console.log('update written to sheet')
+                                //await UpdateSheet(rwCol, `Updating ${el} Done`)
+                                await page1.waitForTimeout(10000)
+                                break;
+                            case 2:
+                                await page1.waitForXPath('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+                                let nxtButton = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+                                await page1.waitForTimeout(1000)
+                                await nxtButton[0].click()
+                                await page1.waitForTimeout(5000)
+                                 //select entity
+                                 await page1.waitForSelector(`aria/${entityName}`)
+                                 await page1.waitForTimeout(1000);
+                                 await page1.click(`aria/${entityName}`)
+                                 console.log('clicked ent nm')
+                                 //select entity val
+                                 // /html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[1]
+                                 await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]`)
+                                 let entToChange1 = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]`);
+                                 await page1.waitForTimeout(2000)
+                                 await entToChange1[0].click()
+                             //  /html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[2]/span[1]/span/div/input[3]
+                                 await page1.waitForTimeout(1000);
+                                 await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]/span[1]/span/div/input[3]`);
+                                 await page1.waitForTimeout(1000);
+                                 let entInpt1 = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]/span[1]/span/div/input[3]`)
+                                 await entInpt1[0].click()
+                                 await entInpt1[0].type(txtToChange)
+                                 
+                                 await page.waitForTimeout(1500);
+                                 await page.keyboard.press('Enter');
+                                 await page1.waitForTimeout(1000)
+                                 await page1.waitForSelector('aria/SAVE')
+                                 await page1.click('aria/SAVE')
+                                 g4.value = `Updating ${el} DONE`
+                                 await sheet.saveUpdatedCells();
+                                 console.log('update written to sheet')
+                                 //await UpdateSheet(rwCol, `Updating ${el} Done`)
+                                 await page1.waitForTimeout(10000)
+                                break
+                            case 3: 
+                                await page1.waitForXPath('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+                                let nxtButton1 = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+                                await page1.waitForTimeout(1000)
+                                await nxtButton1[0].click()
+                                await page1.waitForTimeout(5000)
+                                await page1.waitForXPath('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+                                let nxtButton2 = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+                                await page1.waitForTimeout(1000)
+                                await nxtButton2[0].click()
+                                await page1.waitForTimeout(5000)
+                                 //select entity
+                                 await page1.waitForSelector(`aria/${entityName}`)
+                                 await page1.waitForTimeout(1000);
+                                 await page1.click(`aria/${entityName}`)
+                                 console.log('clicked ent nm')
+                                 //select entity val
+                                 // /html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[1]
+                                 await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]`)
+                                 let entToChange2 = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]`);
+                                 await page1.waitForTimeout(2000)
+                                 await entToChange2[0].click()
+                             //  /html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[2]/span[1]/span/div/input[3]
+                                 await page1.waitForTimeout(1000);
+                                 await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]/span[1]/span/div/input[3]`);
+                                 await page1.waitForTimeout(1000);
+                                 let entInpt2 = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/div/div[3]/div[2]/span/ul/li[${entityIndex}]/span[1]/span/div/input[3]`)
+                                 await entInpt2[0].click()
+                                 await entInpt2[0].type(txtToChange)
+                                 
+                                 await page.waitForTimeout(1500);
+                                 await page.keyboard.press('Enter');
+                                 await page1.waitForTimeout(1000)
+                                 await page1.waitForSelector('aria/SAVE')
+                                 await page1.click('aria/SAVE')
+                                 g4.value = `Updating ${el} DONE`
+                                 await sheet.saveUpdatedCells();
+                                 console.log('update written to sheet')
+                                 //await UpdateSheet(rwCol, `Updating ${el} Done`)
+                                 await page1.waitForTimeout(10000)
+                            default:
+                                break;
+                        }
+                       
                     } catch (error) {
-                        console.log('agent already selected')
-                        await page1.reload({
-                            waitUntil: ["networkidle0", "domcontentloaded"]
-                        });
-                        await page1.waitForTimeout(15000);
-                        await page1.waitForTimeout(10000);
-                        //click settings
-                        await page1.waitForSelector(`#link-settings-agent`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(1500);
-                        console.log('selecting settings')
-                        await page1.click(`#link-settings-agent`);
-
-                        //click import/export
-                        await page1.waitForSelector(`aria/Export and Import`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(1500);
-                        console.log('selecting import/export')
-                        await page1.click(`aria/Export and Import`);
-
-                        //click export button
-
-                        console.log('selecting export button')
-                        await page1.waitForTimeout(1000);
-                        const client = await page1.target().createCDPSession();
-                        await client.send("Page.setDownloadBehavior", {
-                            behavior: "allow",
-                            downloadPath: downloadPath
-                        });
-
-                        await page1.waitForSelector(`aria/EXPORT AS ZIP`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(2000);
-                        await page1.click(`aria/EXPORT AS ZIP`)
-
-
-
-                        await page1.waitForTimeout(15000);
-
-                        //await UpdateSheet("G4", `Backup ${el} Complete`)
-                        await page1.waitForTimeout(3000);
+                        console.log(error)
+                        
                         
                     }
                     
@@ -235,7 +278,14 @@ async function run() {
         }
         
         await runBackup()
-        .then(async()=>{await browser.close()})
+        .then(async()=>{
+            let rwCol = rowCol + rowVal
+            const g4 = await sheet.getCellByA1(rwCol);
+            g4.value = `Updating DONE`
+            await sheet.saveUpdatedCells();
+            console.log('update written to sheet')
+            await browser.close()
+        })
         
         
 
@@ -253,89 +303,15 @@ app.post('/backup', (req, res) => {
     let dt = req.body
     console.log(JSON.stringify(dt))
     changeAgents1 = dt.targets;
-
-
+    entityName = dt.entityName;
+    entityIndex = dt.entityIdx
+    txtToChange = dt.entityVal;
+    rowVal = dt.row;
     run()
     res.send('Backup Started')
 
 })
-app.post('/rename', (req, res) => {
-    const myPromise2 = new Promise((resolve, reject) => {
-        console.log('renaming')
-        let dtTime = moment().format("YYMMDD-HHmm")
-        try {
-            files.map(async (file) => {
-                let nm = file.slice(0,-4)
-                await rename(
-                    zipDirPath + `/${file}`,
-                    zipDirPath + `/${nm}-${dtTime}.zip`,
-                    err => console.log(err)
-                );
 
-
-            })
-            resolve()
-            
-        } catch (error) {
-            console.log(error)
-            reject()
-            
-        }
-    });
-    myPromise
-    .then(()=>{
-        res.status(200).json({
-            message: "Remane Complete"
-        })
-    })
-    .catch(()=>{
-        res.status(401).json({
-            message: "Error occured",
-            error: error.mesage,
-        })
-    })
-    
-
-})
-app.post('/upload',(req, res)=>{
-    const myPromise3 = new Promise(async(resolve, reject) => {
-        console.log('uploading')
-        try {
-            await files.map(async (file) => {
-                let filename = zipDirPath + `/${file}`
-                await storage.bucket(bucketName).upload(filename, {
-                    gzip: true,
-                    metadata: {
-                        cacheControl: 'public, max-age=31536000',
-                    },
-                });
-        
-                console.log(`${filename} uploaded to ${bucketName}.`);
-                doneUpload = true;
-            })
-            resolve()
-        } catch (error) {
-            reject()
-        }
-    });
-    myPromise3
-    .then(()=>{
-        const result = findRemoveSync('./backup', { extensions: ['.zip'] })
-        console.log(result)
-    })
-    .then(()=>{
-        res.status(200).json({
-            message: "Upload Complete"
-        })
-    })
-    .catch(()=>{
-        res.status(401).json({
-            message: "Error occured",
-            error: error.mesage,
-        })
-    })
-    
-})
 app.use(function (req, res, next) {
     next(createError(404));
 });
@@ -387,71 +363,6 @@ async function ResetSheet() {
     await sheet.saveUpdatedCells();
     console.log('update written to sheet')
 }
-async function createBucket() {
-    // Creates the new bucket
-    await storage.createBucket(bucketName);
-    console.log(`Bucket ${bucketName} created.`);
-  }
-  
-  
-async function UploadFiles() {
-    //await createBucket().catch(console.error);
-    doneUpload = false
-    console.log('uploading')
-    files.map(async (file) => {
-        let filename = zipDirPath + `/${file}`
-        await storage.bucket(bucketName).upload(filename, {
-            gzip: true,
-            metadata: {
-                cacheControl: 'public, max-age=31536000',
-            },
-        });
-
-        console.log(`${filename} uploaded to ${bucketName}.`);
-        doneUpload = true;
-    })
-    console.log('uploading done')
-}
-async function DeleteFiles() {
-    doneDelete = false
-    files.map(async (file) => {
-
-        let filename = zipDirPath + `/${file}`
-        try {
-            fs.unlinkSync(filename)
-            //file removed
-        } catch (err) {
-            console.error(err)
-        }
-
-        console.log(`${filename} deleted.`);
-        doneDelete = true;
-    })
-    return
-}
-async function Rename() {
-    doneRename = false;
-    console.log('renaming')
-    let dtTime = moment().format("YYMMDD-HHmm")
-    try {
-        files.map(async (file) => {
-            let nm = file.slice(0,-4)
-            await rename(
-                zipDirPath + `/${file}`,
-                zipDirPath + `/${nm}-${dtTime}.zip`,
-                err => console.log(err)
-            );
 
 
-        })
-        doneRename = true
-    } catch (error) {
-        console.log(error)
-    }
-    
-}
-run()
-//Rename()
-//UploadFiles()
-// const result = findRemoveSync('./backup', { extensions: ['.zip'] })
-// console.log(result)
+//run()

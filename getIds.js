@@ -55,13 +55,9 @@ app.use(express.urlencoded({
     extended: false
 }));
 
-
-//  /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
-//  /usr/bin/chromium-browser
+let agentsDatas = [];
 async function run() {
-    //puppeteerExtra.use(stealthPlugin());
     const browser = await puppeteer.launch({
-        executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         headless: false,
         defaultViewport: null,
         args: [
@@ -103,7 +99,8 @@ async function run() {
             //await page1.waitForTimeout(10000);
             console.log('BACKUP')
             try {
-                for(let el = 1; el < 37; el ++) {
+                for(let el = 1; el < 48; el ++) {
+                    let agentData = {}
                     console.log(`Backing up ${el}`)
                     //await UpdateSheet("G4", `Backup ${el} Started`)
                     //select select agent button
@@ -116,10 +113,6 @@ async function run() {
                     await page1.click('#agents-dropdown-toggle > span.icon-right.icon-caret')
 
                     try {
-                        //select agent
-                        //scroll if needed
-                        //  /html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[1]/a
-                        //  /html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[2]/a
                         await page1.waitForTimeout(5000);
                         
                         //await scrollIntoViewIfNeeded(element, timeout);
@@ -139,84 +132,30 @@ async function run() {
                         console.log('selecting settings')
                         await page1.click(`#link-settings-agent`);
 
-                        //click import/export
-                        await page1.waitForSelector(`aria/Export and Import`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(1500);
-                        console.log('selecting import/export')
-                        await page1.click(`aria/Export and Import`);
+                        //get agent name
+                        await page1.waitForSelector('#entity-name')
+                        let agntN = await page1.$('#entity-name')
+                        let agntName = await page1.evaluate(el => el.value, agntN)
+                        console.log(agntName)
 
-                        //click export button
+                        // get agent id
+                        await page1.waitForSelector('#tab-general > agent-deep-link > div > ul > li > div.param.layout-row > span.ng-binding.ng-scope.flex > a > strong')
+                        let agntI = await page1.$('#tab-general > agent-deep-link > div > ul > li > div.param.layout-row > span.ng-binding.ng-scope.flex > a > strong')
+                        let agntId = await page1.evaluate(el => el.textContent, agntI)
+                        console.log(agntId)
 
-                        console.log('selecting export button')
-                        await page1.waitForTimeout(1000);
-                        const client = await page1.target().createCDPSession();
-                        await client.send("Page.setDownloadBehavior", {
-                            behavior: "allow",
-                            downloadPath: downloadPath
-                        });
-
-                        await page1.waitForSelector(`aria/EXPORT AS ZIP`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(2000);
-                        await page1.click(`aria/EXPORT AS ZIP`)
-
-
-                        //await UpdateSheet("G4", `Backup ${el} Complete`)
-                        await page1.waitForTimeout(15000);
+                        //get agent url
+                        const agentUrl = await page1.url();
+                        console.log(agentUrl);
+                        agentData.name = agntName;
+                        agentData.id = agntId;
+                        agentData.url = agentUrl;
+                        agentsDatas.push(agentData)
+                        console.log(agentsDatas)
                         
                     } catch (error) {
                         console.log('agent already selected')
-                        await page1.reload({
-                            waitUntil: ["networkidle0", "domcontentloaded"]
-                        });
-                        await page1.waitForTimeout(15000);
-                        await page1.waitForTimeout(10000);
-                        //click settings
-                        await page1.waitForSelector(`#link-settings-agent`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(1500);
-                        console.log('selecting settings')
-                        await page1.click(`#link-settings-agent`);
-
-                        //click import/export
-                        await page1.waitForSelector(`aria/Export and Import`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(1500);
-                        console.log('selecting import/export')
-                        await page1.click(`aria/Export and Import`);
-
-                        //click export button
-
-                        console.log('selecting export button')
-                        await page1.waitForTimeout(1000);
-                        const client = await page1.target().createCDPSession();
-                        await client.send("Page.setDownloadBehavior", {
-                            behavior: "allow",
-                            downloadPath: downloadPath
-                        });
-
-                        await page1.waitForSelector(`aria/EXPORT AS ZIP`, {
-                            timeout: 5000
-                        });
-                        //await scrollIntoViewIfNeeded(element, timeout);
-                        await page1.waitForTimeout(2000);
-                        await page1.click(`aria/EXPORT AS ZIP`)
-
-
-
-                        await page1.waitForTimeout(15000);
-
-                        //await UpdateSheet("G4", `Backup ${el} Complete`)
-                        await page1.waitForTimeout(3000);
+                        
                         
                     }
                     
@@ -246,212 +185,6 @@ async function run() {
 
 }
 
-//run()
-app.post('/backup', (req, res) => {
-    //main1()
-
-    let dt = req.body
-    console.log(JSON.stringify(dt))
-    changeAgents1 = dt.targets;
 
 
-    run()
-    res.send('Backup Started')
-
-})
-app.post('/rename', (req, res) => {
-    const myPromise2 = new Promise((resolve, reject) => {
-        console.log('renaming')
-        let dtTime = moment().format("YYMMDD-HHmm")
-        try {
-            files.map(async (file) => {
-                let nm = file.slice(0,-4)
-                await rename(
-                    zipDirPath + `/${file}`,
-                    zipDirPath + `/${nm}-${dtTime}.zip`,
-                    err => console.log(err)
-                );
-
-
-            })
-            resolve()
-            
-        } catch (error) {
-            console.log(error)
-            reject()
-            
-        }
-    });
-    myPromise
-    .then(()=>{
-        res.status(200).json({
-            message: "Remane Complete"
-        })
-    })
-    .catch(()=>{
-        res.status(401).json({
-            message: "Error occured",
-            error: error.mesage,
-        })
-    })
-    
-
-})
-app.post('/upload',(req, res)=>{
-    const myPromise3 = new Promise(async(resolve, reject) => {
-        console.log('uploading')
-        try {
-            await files.map(async (file) => {
-                let filename = zipDirPath + `/${file}`
-                await storage.bucket(bucketName).upload(filename, {
-                    gzip: true,
-                    metadata: {
-                        cacheControl: 'public, max-age=31536000',
-                    },
-                });
-        
-                console.log(`${filename} uploaded to ${bucketName}.`);
-                doneUpload = true;
-            })
-            resolve()
-        } catch (error) {
-            reject()
-        }
-    });
-    myPromise3
-    .then(()=>{
-        const result = findRemoveSync('./backup', { extensions: ['.zip'] })
-        console.log(result)
-    })
-    .then(()=>{
-        res.status(200).json({
-            message: "Upload Complete"
-        })
-    })
-    .catch(()=>{
-        res.status(401).json({
-            message: "Error occured",
-            error: error.mesage,
-        })
-    })
-    
-})
-app.use(function (req, res, next) {
-    next(createError(404));
-});
-
-app.listen(PORT, () => console.log(`backend running on port ${PORT}`))
-
-async function UpdateSheet(cell, cellVal) {
-    
-    await doc.useServiceAccountAuth({
-        client_email: CREDENTIALS.client_email,
-        private_key: CREDENTIALS.private_key
-    });
-
-    // load the documents info
-    await doc.loadInfo();
-
-
-    const sheet = doc.sheetsByTitle['UpdateDF'];
-    console.log(sheet.title);
-    await sheet.loadCells('G4:J4');
-    const c6 = await sheet.getCellByA1(cell);
-    c6.value = cellVal
-    await sheet.saveUpdatedCells();
-    console.log('update written to sheet')
-}
-async function ResetSheet() {
-    await doc.useServiceAccountAuth({
-        client_email: CREDENTIALS.client_email,
-        private_key: CREDENTIALS.private_key
-    });
-
-    // load the documents info
-    await doc.loadInfo();
-
-
-    const sheet = doc.sheetsByTitle['UpdateDF'];
-    console.log(sheet.title);
-    await sheet.loadCells('G4:O4');
-    const g4 = await sheet.getCellByA1('G4');
-    const h4 = await sheet.getCellByA1('H4');
-    const i4 = await sheet.getCellByA1('I4');
-    const j4 = await sheet.getCellByA1('J4');
-    const k4 = await sheet.getCellByA1('K4');
-    g4.value = ''
-    h4.value = ''
-    i4.value = ''
-    j4.value = ''
-    k4.value = ''
-    await sheet.saveUpdatedCells();
-    console.log('update written to sheet')
-}
-async function createBucket() {
-    // Creates the new bucket
-    await storage.createBucket(bucketName);
-    console.log(`Bucket ${bucketName} created.`);
-  }
-  
-  
-async function UploadFiles() {
-    //await createBucket().catch(console.error);
-    doneUpload = false
-    console.log('uploading')
-    files.map(async (file) => {
-        let filename = zipDirPath + `/${file}`
-        await storage.bucket(bucketName).upload(filename, {
-            gzip: true,
-            metadata: {
-                cacheControl: 'public, max-age=31536000',
-            },
-        });
-
-        console.log(`${filename} uploaded to ${bucketName}.`);
-        doneUpload = true;
-    })
-    console.log('uploading done')
-}
-async function DeleteFiles() {
-    doneDelete = false
-    files.map(async (file) => {
-
-        let filename = zipDirPath + `/${file}`
-        try {
-            fs.unlinkSync(filename)
-            //file removed
-        } catch (err) {
-            console.error(err)
-        }
-
-        console.log(`${filename} deleted.`);
-        doneDelete = true;
-    })
-    return
-}
-async function Rename() {
-    doneRename = false;
-    console.log('renaming')
-    let dtTime = moment().format("YYMMDD-HHmm")
-    try {
-        files.map(async (file) => {
-            let nm = file.slice(0,-4)
-            await rename(
-                zipDirPath + `/${file}`,
-                zipDirPath + `/${nm}-${dtTime}.zip`,
-                err => console.log(err)
-            );
-
-
-        })
-        doneRename = true
-    } catch (error) {
-        console.log(error)
-    }
-    
-}
 run()
-//Rename()
-//UploadFiles()
-// const result = findRemoveSync('./backup', { extensions: ['.zip'] })
-// console.log(result)
