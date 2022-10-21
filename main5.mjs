@@ -64,8 +64,8 @@ let changeAgents1 = [
     '1500-BostVW_____-8323080838'
 ];
 
-let startDate = '2022-09-18'
-let endDate = '2022-09-26'
+let startDate = '2022-10-18'
+let endDate = '2022-10-22'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import mongo from 'mongodb';
@@ -97,7 +97,53 @@ import Log from './Log.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const zipDirPath = resolve(__dirname, 'backup');
-
+let priorityOneAgents = [
+    {
+        name: '1500-BostVW_____-8323080838',
+        id: 'newagent-9uws',
+        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9uws/'
+    },
+    {
+        name: '1440-KnigCDJRClar-8323063418',
+        id: 'newagent-hw9g',
+        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hw9g/'
+    },
+    {
+        name: '420-TuttleClickFord-860-317-6720',
+        id: 'tuttleclickford-exuq',
+        url: 'https://dialogflow.cloud.google.com/#/editAgent/tuttleclickford-exuq/'
+    },
+    {
+        name: '375-EnviMercEscoX-8549995359',
+        id: 'newagent-ppfv',
+        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ppfv/'
+    },
+    {
+        name: '376-EnviMercWCovK-8592129755',
+        id: 'newagent-ittx',
+        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ittx/'
+    },
+    {
+        name: '380-RegaNiss-BDC-8323088796',
+        id: 'h6-0-demo-toyota-drcvsv',
+        url: 'https://dialogflow.cloud.google.com/#/editAgent/h6-0-demo-toyota-drcvsv/'
+    },
+    {
+        name: '343-HansVolkBDCREC-8549995347',
+        id: 'xxx-ttxf',
+        url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-ttxf/'
+    },
+    {
+        name: '330-SansKia_-818-493-9849',
+        id: 'ea7-rmfj',
+        url: 'https://dialogflow.cloud.google.com/#/editAgent/ea7-rmfj/'
+    },
+    {
+        name: '510-NortFordCoun-8323080811',
+        id: 'newagent-cwer',
+        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-cwer/'
+    }
+]
 import { GoogleSpreadsheet } from'google-spreadsheet';
 //const CREDENTIALS = require('./sheets.json');
 //import * as CREDENTIALS from './sheets.json'
@@ -155,8 +201,9 @@ async function run() {
             
             try {
                 for (let index = 0; index < changeAgents1.length; index++) {
-                    const el = changeAgents1[index]
-                    console.log(`running ${el}`)
+                    const elv = priorityOneAgents[index]
+                    let el = elv
+                    console.log(`running ${elv.name}`)
                     let oj = {
                       USER: el
                   }
@@ -207,8 +254,18 @@ async function run() {
                         await page1.click(`#link-history`);
                         await page1.waitForTimeout(15000);
                         //click import/export
-                        let iid = 500
-                    
+                        let iid = 50
+                        try{
+                            let xn = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/history/div/div[4]/div[1]/md-select/md-select-value/span[2]', {timeout: 10000});
+                            await page1.waitForTimeout(4500);
+                            await xn[0].click()
+                            await page1.waitForTimeout(2500);
+                            await page1.waitForTimeout(1000);
+                            await page1.waitForSelector('aria/100')
+                            await page1.waitForTimeout(1000);
+                            await page1.click('aria/100');
+                            await page1.waitForTimeout(15000);
+                        }catch(e){}
                                 
                         let convRow = []
                         async function getC(){
@@ -244,15 +301,7 @@ async function run() {
                            let bboking = false;
                            let numOfIterations = 0
                            let iterationsExceeded = false
-                           let xn = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/history/div/div[4]/div[1]/md-select/md-select-value/span[2]', {timeout: 10000});
-                            await page1.waitForTimeout(4500);
-                            await xn[0].click()
-                            await page1.waitForTimeout(2500);
-                            await page1.waitForTimeout(1000);
-                            await page1.waitForSelector('aria/100')
-                            await page1.waitForTimeout(1000);
-                            await page1.click('aria/100');
-                            await page1.waitForTimeout(15000);
+                           
                             
                            if(idx === 101){
                             await page1.waitForTimeout(2000)
@@ -423,12 +472,13 @@ async function run() {
                                     
                                 }
                                 // check if string contains text
-                                if(convStr.includes('Would you like drop off your vehicle or wait at the dealership?') || convStr.includes('Now, please tell me what services you would like?') || convStr.includes('Please say your vehicle') || lastStr.includes('Would you like drop off your vehicle or wait at the dealership?') || lastStr.includes('Now, please tell me what services you would like?') || lastStr.includes('Please say your vehicle')){
+                                let str1 = convStr + '\n' + lastStr
+                                if(str1.includes('Would you like drop off your vehicle or wait at the dealership?') || convStr.includes('Now, please tell me what services you would like?') || convStr.includes('Please say your vehicle') || lastStr.includes('Would you like drop off your vehicle or wait at the dealership?') || lastStr.includes('Now, please tell me what services you would like?') || lastStr.includes('Please say your vehicle')){
                                     onh.isBookingIntent = true
                                 }else{
                                     onh.isBookingIntent = false
                                 }
-                                if(convStr.includes('availability') || lastStr.includes('availability')){
+                                if(str1.includes('availability') || lastStr.includes('Please select a time, say next, or say a date')){
                                     onh.TimeSlotsGiven = true
                                 }else{
                                     onh.TimeSlotsGiven = false
@@ -440,7 +490,7 @@ async function run() {
                                 }
                                 let bs = startTime.split(' ')
                                 let cs = bs[1].substring(0, bs[1].length - 1)
-                                let ds = '9/' + cs + '/2022'
+                                let ds = '10/' + cs + '/2022'
                               onh.CallTime = startTime;
                               onh.Conversations = convStr;
                               onh.LastIteration = lastStr;
@@ -459,7 +509,7 @@ async function run() {
                               onh.Time = se[1]
                               //const moreRows = await sheet.addRow(onh);
                              
-                              let save = await Log.create(onh)
+                              //let save = await Log.create(onh)
                               //console.log(save instanceof Log)
                               onh.UserSays = []
                                onh.AgentSays = []

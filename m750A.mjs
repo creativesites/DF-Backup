@@ -51,15 +51,136 @@ let priorityOneAgents = [
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-cwer/'
   }
 ]
-let startDate = '2022-10-20'
-let endDate = '2022-10-20'
+  let allAgents = [
+   
+    
+    {
+      name: '00-003-XhondTaz-8184929306',
+      id: 'h6-0-demo-toyota-drcvsv',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/h6-0-demo-toyota-drcvsv/'
+    },
+    {
+      name: '00-004-NhondSerra__-7072421465',
+      id: 'autoservice-gsiwft',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/autoservice-gsiwft/'
+    },
+    {
+      name: '00-005-LtoyoBellR-8184939734',
+      id: 'b0v-alexh-fxfa',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/b0v-alexh-fxfa/'
+    },
+    {
+      name: '00-006-XhondGalp-6174025457',
+      id: 'a000-dev-vnkj',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/a000-dev-vnkj/'
+    },
+    
+    {
+      name: '300-AutoPorsBell-8162816544',
+      id: 'xxx-galpinh-oekl',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpinh-oekl/'
+    },
+    
+    {
+      name: '332-SansNiss-818-493-9961',
+      id: 's001-hansbwmx--9tji',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/s001-hansbwmx--9tji/'
+    },
+    {
+      name: '342-HansBwmBDCREC-8603176527',
+      id: 'xxx-ttxf',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-ttxf/'
+    },
+   
+    {
+      name: '375-EnviMercEscoX-8549995359',
+      id: 'newagent-ppfv',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ppfv/'
+    },
+    {
+      name: '376-EnviMercWCovK-8592129755',
+      id: 'newagent-ittx',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ittx/'
+    },
+    {
+      name: '377-EnviAudiWCovK-8592129826',
+      id: 'u371-envihond--n9je',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/u371-envihond--n9je/'
+    },
+    
+    {
+      name: '380-RegaNiss-BDC-8323088796',
+      id: 'newagent-kwjg',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-kwjg/'
+    },
+    
+    {
+      name: '383-EnviJLR_Cerr-6152705405',
+      id: 'e384-envitoyonorwc--lrve',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/e384-envitoyonorwc--lrve/'  },
+   
+    {
+      name: '385-EnviToyoWCovC-8592129845',
+      id: 'newagent-lyqj',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-lyqj/'
+    },
+    {
+      name: '400-GalpFord-818-492-9740',
+      id: 'newagent-ahyx',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ahyx/'
+    },
+    {
+      name: '401-GalpJagu-854-999-5316',
+      id: 'newagent-xppr',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-xppr/'
+    },
+    {
+      name: '403-GalpLand-854-999-5326',
+      id: 'newagent-mtep',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-mtep/'
+    },
+    {
+      name: '404-GalpLinc-516-274-7227',
+      id: 'newagent-msec',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-msec/'
+    },
+    {
+      name: '405-GalpMazd-854-999-5318',
+      id: 'newagent-bxcs',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bxcs/'
+    },
+    {
+      name: '406-GalpPors-854-999-5322',
+      id: 'newagent-jwnv',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-jwnv/'
+    },
+    {
+      name: '407-GalpVolk-512-518-0344',
+      id: 'newagent-gdbb',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-gdbb/'
+    },
+    
+    {
+      name: '410-StocHyun-8549995374',
+      id: 'tuttleclickford-exuq',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/tuttleclickford-exuq/'
+    },
+    {
+      name: '420-TuttleClickFord-8603176720',
+      id: 'newagent-bvdd',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bvdd/'
+    }
+    
+  ]
+let startDate = '2022-10-12'
+let endDate = '2022-10-14'
 import {predict} from './classify.js'
 import { range, filter, map, mergeMap, toArray , from} from 'rxjs';
 import { GoogleSpreadsheet } from'google-spreadsheet';
 import CREDENTIALS  from "./sheets.json" assert { type: "json" };
 const RESPONSES_SHEET_ID = '1gza3a05wWV4bt7c9pMyJsm43hpbCpPx84Uctym2zjOg';
 const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
-
+let responses = []
 async function run(){
     startDate = moment(startDate).format('dddd MMMM D YYYY');
     console.log(startDate)
@@ -96,25 +217,29 @@ async function run(){
         try {
             return await fn(page1);
         } finally {
+            await pushData()
+            
             await page1.close();
         }
     }
     
-    await doc.useServiceAccountAuth({
-        client_email: CREDENTIALS.client_email,
-        private_key: CREDENTIALS.private_key
-      });
-  
-    // load the documents info
-    await doc.loadInfo();
-    const sheet = doc.sheetsByTitle['History'];
-    console.log(sheet.title);
+    
 
     return from(priorityOneAgents).pipe(
         mergeMap(async (el) => {
             return withPage(browser)(async (page1) => {
+              responses = []
                 console.log(`Scraping ${el}`);
-                let agentId = el.id
+                await doc.useServiceAccountAuth({
+                    client_email: CREDENTIALS.client_email,
+                    private_key: CREDENTIALS.private_key
+                  });
+              
+                // load the documents info
+                await doc.loadInfo();
+                const sheet = doc.sheetsByTitle['History'];
+                console.log(sheet.title);
+                let agentId = el.id;
                 let newUrl = `https://dialogflow.cloud.google.com/#/agent/${agentId}/history`;
                 await page1.goto(newUrl, {
                     waitUntil: 'networkidle2',
@@ -123,34 +248,9 @@ async function run(){
                 await page1.waitForTimeout(5000);
                 await page1.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
                 await page1.waitForTimeout(10000);
+               
                 try {
-                  // select date range
-                await page1.waitForSelector('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(1) > div > button > div')
-                await page1.waitForTimeout(1000);
-                await page1.click('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(1) > div > button > div');
-                await page1.waitForTimeout(1000);
-                // select start date
-                await page1.waitForSelector(`aria/${startDate}`)
-                await page1.waitForTimeout(1000);
-                await page1.click(`aria/${startDate}`);
-                await page1.waitForTimeout(1000);
-                // select second date range
-                await page1.waitForSelector('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(3) > div > button');
-                await page1.waitForTimeout(1000);
-                await page1.click('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(3) > div > button');
-                await page1.waitForTimeout(1000);
-                // select end date
-                await page1.waitForSelector(`aria/${endDate}`)
-                await page1.waitForTimeout(1000);
-                await page1.click(`aria/${endDate}`);
-                await page1.waitForTimeout(1000);
-                // wait for page to load
-                await page1.waitForTimeout(10000);
-                } catch (error) {
-                  console.log(el)
-                }
-
-                // select 100 rows
+                  // select 100 rows
                 let xn = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/history/div/div[4]/div[1]/md-select/md-select-value/span[2]', {timeout: 10000});
                 await page1.waitForTimeout(4500);
                 await xn[0].click()
@@ -160,6 +260,10 @@ async function run(){
                 await page1.waitForTimeout(1000);
                 await page1.click('aria/100');
                 await page1.waitForTimeout(15000);
+                } catch (error) {
+                  
+                }
+                
                 let iid = 50
                 for (let idx = 1; idx < iid; idx++){
                     let arrVal = idx;
@@ -175,51 +279,7 @@ async function run(){
                     let numOfIterations = 0
                     let iterationsExceeded = false
                     try{
-                        // if(idx === 101){
-                        //     await page1.waitForTimeout(2000)
-                        //     await page1.waitForSelector('aria/navigate_next')
-                        //     await page1.waitForTimeout(1000)
-                        //     await page1.click('aria/navigate_next');
-                        //     await page1.waitForTimeout(5000);
-                        //     arrVal -= 100
-                        //    }
-                        //    if(idx > 101 && idx < 201){
-                        //     arrVal -= 100
-                        //    }
-                        //    if(idx === 201){
-                        //     await page1.waitForTimeout(2000)
-                        //     await page1.waitForSelector('aria/navigate_next')
-                        //     await page1.waitForTimeout(1000)
-                        //     await page1.click('aria/navigate_next');
-                        //     await page1.waitForTimeout(5000);
-                        //     arrVal -= 200
-                        //    }
-                        //    if(idx > 201 && idx < 301){
-                        //     arrVal -= 200
-                        //    }
-                        //    if(idx === 301){
-                        //     await page1.waitForTimeout(2000)
-                        //     await page1.waitForSelector('aria/navigate_next')
-                        //     await page1.waitForTimeout(1000)
-                        //     await page1.click('aria/navigate_next');
-                        //     await page1.waitForTimeout(5000);
-                        //     arrVal -= 300
-                        //    }
-                        //    if(idx > 301 && idx < 401){
-                        //     arrVal -= 300
-                        //    }
-
-                        //    if(idx === 401){
-                        //     await page1.waitForTimeout(2000)
-                        //     await page1.waitForSelector('aria/navigate_next')
-                        //     await page1.waitForTimeout(1000)
-                        //     await page1.click('aria/navigate_next');
-                        //     await page1.waitForTimeout(5000);
-                        //     arrVal -= 400
-                        //    }
-                        //    if(idx > 401 && idx < 501){
-                        //     arrVal -= 400
-                        //    }
+                        
                            let cpy = await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`, {timeout: 5000})
                            await page1.waitForTimeout(1000)
                            //await scrollIntoViewIfNeeded(cpy, 6000);
@@ -338,23 +398,23 @@ async function run(){
                         onh.Conversations = convStr;
                         onh.LastIteration = lastStr;
                         onh.Iterations = numConv;
-                        onh.Date = moment(date1).format('l')
+                        
                         onh.TrainingString = TrainingString;
                         onh.Type = type;
                         onh.UserSays = userSayArr;
                         onh.AgentSays = agentSayArr;
                         onh.IsBooking = bboking;
-                        onh.Agent = el;
+                        onh.Agent = el.name;
                         onh.IterationsExceeded = iterationsExceeded;
                         let se = startTime.split(',')
                         let gdh = se[0] + '2022'
-                        let gdh2 =  moment(gdh, 'MMM DD YYYY').format('MM/DD/YYYY')
+                        let gdh2 = moment(gdh).format('l')
                         onh.Date = gdh2
                         onh.Time = se[1]
                         onh.UserSays = []
                          onh.AgentSays = []
                          await sheet.addRow(onh)
-                        convArr.push(onh)
+                        responses.push(onh)
                     }catch(e){
                         console.log(e)
                         continue
@@ -370,5 +430,27 @@ async function run(){
         toArray(),
     ).toPromise();
 }
-
-run()
+async function pushData(){
+    var data = JSON.stringify(responses);
+    console.log(responses.length)
+    var config = {
+        method: 'post',
+        url: 'https://script.google.com/macros/s/AKfycbw9OYAd3AQd4IBPBjpWovKVbUJwUrnnUSmAZlNNAGwNbaCgMKODo9iFAN_AADMAUZvh/exec?gid=377807407',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        data: data
+    };
+    
+    axios(config)
+    .then(function (response) {
+    console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+    console.log(error);
+    });
+}
+run().then(() => {
+    console.log('done');
+    process.exit(0);
+    });
