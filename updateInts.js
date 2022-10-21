@@ -25,7 +25,7 @@ let done = false;
 let tEnt = false;
 let tInt = false;
 let agent = '00-000-DEV1-FY-8323176701';
-let ints1 = [5, 6, 7, 8, 9, 10, 11, 12, 13];
+let ints1 = [8, 10];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
@@ -593,7 +593,7 @@ async function run(){
                     await page1.waitForTimeout(5000);
                     await (async () => {
                       await page1.waitForTimeout(10000);
-                      for (let idx = 1; idx < 37; idx++) {
+                      for (let idx = 1; idx < 48; idx++) {
                         const el5 = idx;
                         console.log(`Updating ${el5} Intents`)
                         //  /html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[5]

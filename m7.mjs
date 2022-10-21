@@ -4,241 +4,55 @@ import cheerio from'cheerio';
 import axios from'axios'
 import moment from'moment';
 const file = './data.json'
-//let changeAgents1 = ['1440-KnigCDJRClar-8323063418'];
-let changeAgents1 = ['1510-NortFordCoun-8323080811', '1440-KnigCDJRClar-8323063418', '1500-BostVW_____-8323080838'];
-//changeAgents1 = changeAgents1.reverse();
-let allAgents = [
-    {
-      name: '',
-      id: 'j0v-davidg-idno',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/j0v-davidg-idno/'
-    },
-    {
-      name: '00-000-DEMO1-POR-8184921287',
-      id: 'newagent-rouw',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-rouw/'
-    },
-    {
-      name: '00-000-DEV1-FY-8323176701',
-      id: 'v6-x-prod-redwoodcityp-qkwyhi',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/v6-x-prod-redwoodcityp-qkwyhi/'
-    },
-    {
-      name: '00-000-DEV2-FIXEDLINE-8323049105',
-      id: 'c6-1-sunc-dev1-gpuijh',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/c6-1-sunc-dev1-gpuijh/'
-    },
-    {
-      name: '00-000-DEV3-6502736907',
-      id: 'kiahambra3-jiacnd',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/kiahambra3-jiacnd/'
-    },
-    {
-      name: '00-001-MkiaHambra-3238142465',
-      id: 'h00-000-dfit',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/h00-000-dfit/'
-    },
-    {
-      name: '00-002-CfordNapa-8184929153',
-      id: 'j0c-002-hondaxttaz--itii',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/j0c-002-hondaxttaz--itii/'  },
-    {
-      name: '00-003-XhondTaz-8184929306',
-      id: 'h6-0-demo-toyota-drcvsv',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/h6-0-demo-toyota-drcvsv/'
-    },
-    {
-      name: '00-004-NhondSerra__-7072421465',
-      id: 'autoservice-gsiwft',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/autoservice-gsiwft/'
-    },
-    {
-      name: '00-005-LtoyoBellR-8184939734',
-      id: 'b0v-alexh-fxfa',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/b0v-alexh-fxfa/'
-    },
-    {
-      name: '00-006-XhondGalp-6174025457',
-      id: 'a000-dev-vnkj',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/a000-dev-vnkj/'
-    },
-    {
-      name: '000-PROXY-8603176911',
-      id: 'o000000000000-sxcc',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/o000000000000-sxcc/'
-    },
-    {
-      name: '000000000000',
-      id: 'newagent-hw9g',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hw9g/'
-    },
-    {
-      name: '1440-KnigCDJRClar-8323063418',
+let priorityOneAgents = [
+  {
+      name: '1500-BostVW_____-8323080838',
       id: 'newagent-9uws',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9uws/'
-    },
-    {
-      name: '1500-BostVW_____-8323080838',
-      id: 'newagent-cwer',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-cwer/'
-    },
-    {
-      name: '1510-NortFordCoun-8323080811',
-      id: 'u020-autoporx--bnvs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/u020-autoporx--bnvs/'
-    },
-    {
-      name: '300-AutoPorsBell-8162816544',
-      id: 'xxx-galpinh-oekl',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpinh-oekl/'
-    },
-    {
-      name: '301-AutoMercBell-3602271073',
-      id: 'ea2-jdaq',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea2-jdaq/'
-    },
-    {
-      name: '330-SansKia_-818-493-9849',
-      id: 'ea7-rmfj',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea7-rmfj/'
-    },
-    {
-      name: '331-SansMits-818-493-9971',
-      id: 'ea1-gyhm',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea1-gyhm/'
-    },
-    {
-      name: '332-SansNiss-818-493-9961',
-      id: 's001-hansbwmx--9tji',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/s001-hansbwmx--9tji/'
-    },
-    {
-      name: '342-HansBwmBDCREC-8603176527',
-      id: 'xxx-ttxf',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-ttxf/'
-    },
-    {
-      name: '343-HansVolkBDCREC-8549995347',
-      id: 'newagent-ohlf',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ohlf/'
-    },
-    {
-      name: '372-EnviToyo-BDC-8592036683',
-      id: 'newagent-hf9x',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hf9x/'
-    },
-    {
-      name: '373-EnviHond-BDCREC-8549995365',
-      id: 'newagent-9j9r',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9j9r/'
-    },
-    {
+  },
+  {
+      name: '1440-KnigCDJRClar-8323063418',
+      id: 'newagent-hw9g',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hw9g/'
+  },
+  {
+      name: '420-TuttleClickFord-860-317-6720',
+      id: 'tuttleclickford-exuq',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/tuttleclickford-exuq/'
+  },
+  {
       name: '375-EnviMercEscoX-8549995359',
       id: 'newagent-ppfv',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ppfv/'
-    },
-    {
+  },
+  {
       name: '376-EnviMercWCovK-8592129755',
       id: 'newagent-ittx',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ittx/'
-    },
-    {
-      name: '377-EnviAudiWCovK-8592129826',
-      id: 'u371-envihond--n9je',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/u371-envihond--n9je/'
-    },
-    {
-      name: '378-EnviCDJRWCovF-8549995366',
-      id: 'ea3-vwwl',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea3-vwwl/'
-    },
-    {
+  },
+  {
       name: '380-RegaNiss-BDC-8323088796',
-      id: 'newagent-kwjg',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-kwjg/'
-    },
-    {
-      name: '382-EnviFordOxna-8549995371',
-      id: 'h383-envijlr-cerr--bwyi',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/h383-envijlr-cerr--bwyi/'
-    },
-    {
-      name: '383-EnviJLR_Cerr-6152705405',
-      id: 'e384-envitoyonorwc--lrve',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/e384-envitoyonorwc--lrve/'  },
-    {
-      name: '384-EnviToyoNorwC-6143853839',
-      id: 'newagent-ycbs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ycbs/'
-    },
-    {
-      name: '385-EnviToyoWCovC-8592129845',
-      id: 'newagent-lyqj',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-lyqj/'
-    },
-    {
-      name: '400-GalpFord-818-492-9740',
-      id: 'newagent-ahyx',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ahyx/'
-    },
-    {
-      name: '401-GalpJagu-854-999-5316',
-      id: 'newagent-xppr',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-xppr/'
-    },
-    {
-      name: '403-GalpLand-854-999-5326',
-      id: 'newagent-mtep',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-mtep/'
-    },
-    {
-      name: '404-GalpLinc-516-274-7227',
-      id: 'newagent-msec',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-msec/'
-    },
-    {
-      name: '405-GalpMazd-854-999-5318',
-      id: 'newagent-bxcs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bxcs/'
-    },
-    {
-      name: '406-GalpPors-854-999-5322',
-      id: 'newagent-jwnv',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-jwnv/'
-    },
-    {
-      name: '407-GalpVolk-512-518-0344',
-      id: 'newagent-gdbb',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-gdbb/'
-    },
-    {
-      name: '408-GalpVolv-484-245-4314',
-      id: 'xxx-galpmazd-hnof',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpmazd-hnof/'
-    },
-    {
-      name: '410-StocHyun-8549995374',
-      id: 'tuttleclickford-exuq',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/tuttleclickford-exuq/'
-    },
-    {
-      name: '420-TuttleClickFord-8603176720',
-      id: 'newagent-bvdd',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bvdd/'
-    },
-    {
-      name: 'x373-EnviHond-BDC1-8592129746',
-      id: 'ea4-9mgs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea4-9mgs/'
-    },
-    {
-      name: 'xxx342-HansBwmBDC-8323231735',
-      id: 'ea5-mtpc',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea5-mtpc/'
-    }
-  ]
-let startDate = '2022-10-12'
-let endDate = '2022-10-14'
+      id: 'h6-0-demo-toyota-drcvsv',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/h6-0-demo-toyota-drcvsv/'
+  },
+  {
+      name: '343-HansVolkBDCREC-8549995347',
+      id: 'xxx-ttxf',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-ttxf/'
+  },
+  {
+      name: '330-SansKia_-818-493-9849',
+      id: 'ea7-rmfj',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea7-rmfj/'
+  },
+  {
+      name: '510-NortFordCoun-8323080811',
+      id: 'newagent-cwer',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-cwer/'
+  }
+]
+let startDate = '2022-10-20'
+let endDate = '2022-10-20'
 import {predict} from './classify.js'
 import { range, filter, map, mergeMap, toArray , from} from 'rxjs';
 import { GoogleSpreadsheet } from'google-spreadsheet';
@@ -296,11 +110,11 @@ async function run(){
     const sheet = doc.sheetsByTitle['History'];
     console.log(sheet.title);
 
-    return from(changeAgents1).pipe(
+    return from(priorityOneAgents).pipe(
         mergeMap(async (el) => {
             return withPage(browser)(async (page1) => {
                 console.log(`Scraping ${el}`);
-                let agentId = allAgents.find((el1) => el1.name === el).id;
+                let agentId = el.id
                 let newUrl = `https://dialogflow.cloud.google.com/#/agent/${agentId}/history`;
                 await page1.goto(newUrl, {
                     waitUntil: 'networkidle2',
@@ -309,7 +123,8 @@ async function run(){
                 await page1.waitForTimeout(5000);
                 await page1.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
                 await page1.waitForTimeout(10000);
-                // select date range
+                try {
+                  // select date range
                 await page1.waitForSelector('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(1) > div > button > div')
                 await page1.waitForTimeout(1000);
                 await page1.click('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(1) > div > button > div');
@@ -331,6 +146,9 @@ async function run(){
                 await page1.waitForTimeout(1000);
                 // wait for page to load
                 await page1.waitForTimeout(10000);
+                } catch (error) {
+                  console.log(el)
+                }
 
                 // select 100 rows
                 let xn = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/history/div/div[4]/div[1]/md-select/md-select-value/span[2]', {timeout: 10000});
@@ -342,7 +160,7 @@ async function run(){
                 await page1.waitForTimeout(1000);
                 await page1.click('aria/100');
                 await page1.waitForTimeout(15000);
-                let iid = 500
+                let iid = 50
                 for (let idx = 1; idx < iid; idx++){
                     let arrVal = idx;
                     let userSayArr = []
@@ -357,51 +175,51 @@ async function run(){
                     let numOfIterations = 0
                     let iterationsExceeded = false
                     try{
-                        if(idx === 101){
-                            await page1.waitForTimeout(2000)
-                            await page1.waitForSelector('aria/navigate_next')
-                            await page1.waitForTimeout(1000)
-                            await page1.click('aria/navigate_next');
-                            await page1.waitForTimeout(5000);
-                            arrVal -= 100
-                           }
-                           if(idx > 101 && idx < 201){
-                            arrVal -= 100
-                           }
-                           if(idx === 201){
-                            await page1.waitForTimeout(2000)
-                            await page1.waitForSelector('aria/navigate_next')
-                            await page1.waitForTimeout(1000)
-                            await page1.click('aria/navigate_next');
-                            await page1.waitForTimeout(5000);
-                            arrVal -= 200
-                           }
-                           if(idx > 201 && idx < 301){
-                            arrVal -= 200
-                           }
-                           if(idx === 301){
-                            await page1.waitForTimeout(2000)
-                            await page1.waitForSelector('aria/navigate_next')
-                            await page1.waitForTimeout(1000)
-                            await page1.click('aria/navigate_next');
-                            await page1.waitForTimeout(5000);
-                            arrVal -= 300
-                           }
-                           if(idx > 301 && idx < 401){
-                            arrVal -= 300
-                           }
+                        // if(idx === 101){
+                        //     await page1.waitForTimeout(2000)
+                        //     await page1.waitForSelector('aria/navigate_next')
+                        //     await page1.waitForTimeout(1000)
+                        //     await page1.click('aria/navigate_next');
+                        //     await page1.waitForTimeout(5000);
+                        //     arrVal -= 100
+                        //    }
+                        //    if(idx > 101 && idx < 201){
+                        //     arrVal -= 100
+                        //    }
+                        //    if(idx === 201){
+                        //     await page1.waitForTimeout(2000)
+                        //     await page1.waitForSelector('aria/navigate_next')
+                        //     await page1.waitForTimeout(1000)
+                        //     await page1.click('aria/navigate_next');
+                        //     await page1.waitForTimeout(5000);
+                        //     arrVal -= 200
+                        //    }
+                        //    if(idx > 201 && idx < 301){
+                        //     arrVal -= 200
+                        //    }
+                        //    if(idx === 301){
+                        //     await page1.waitForTimeout(2000)
+                        //     await page1.waitForSelector('aria/navigate_next')
+                        //     await page1.waitForTimeout(1000)
+                        //     await page1.click('aria/navigate_next');
+                        //     await page1.waitForTimeout(5000);
+                        //     arrVal -= 300
+                        //    }
+                        //    if(idx > 301 && idx < 401){
+                        //     arrVal -= 300
+                        //    }
 
-                           if(idx === 401){
-                            await page1.waitForTimeout(2000)
-                            await page1.waitForSelector('aria/navigate_next')
-                            await page1.waitForTimeout(1000)
-                            await page1.click('aria/navigate_next');
-                            await page1.waitForTimeout(5000);
-                            arrVal -= 400
-                           }
-                           if(idx > 401 && idx < 501){
-                            arrVal -= 400
-                           }
+                        //    if(idx === 401){
+                        //     await page1.waitForTimeout(2000)
+                        //     await page1.waitForSelector('aria/navigate_next')
+                        //     await page1.waitForTimeout(1000)
+                        //     await page1.click('aria/navigate_next');
+                        //     await page1.waitForTimeout(5000);
+                        //     arrVal -= 400
+                        //    }
+                        //    if(idx > 401 && idx < 501){
+                        //     arrVal -= 400
+                        //    }
                            let cpy = await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`, {timeout: 5000})
                            await page1.waitForTimeout(1000)
                            //await scrollIntoViewIfNeeded(cpy, 6000);
@@ -529,6 +347,9 @@ async function run(){
                         onh.Agent = el;
                         onh.IterationsExceeded = iterationsExceeded;
                         let se = startTime.split(',')
+                        let gdh = se[0] + '2022'
+                        let gdh2 =  moment(gdh, 'MMM DD YYYY').format('MM/DD/YYYY')
+                        onh.Date = gdh2
                         onh.Time = se[1]
                         onh.UserSays = []
                          onh.AgentSays = []
