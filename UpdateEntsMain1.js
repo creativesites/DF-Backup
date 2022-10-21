@@ -103,18 +103,19 @@ async function run(){
         
         async function runEntities(){
           await (async () => {
-              
+            await page1.waitForTimeout(2000)
+            await page1.waitForXPath('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+            let nxtB = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+            await page1.waitForTimeout(1000)
+            await nxtB[0].click()
+            await page1.waitForTimeout(5000)
               for (let index = 1; index < 48; index++) {
               let el4 = index;
               console.log(`Updating ${el4} Entities`)
             //   await page1.waitForTimeout(5000);
               
               
-                await page1.waitForTimeout(2000)
-              await page1.waitForXPath('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
-              let nxtB = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
-              await page1.waitForTimeout(1000)
-              await nxtB[0].click()
+                
             // await page1.waitForTimeout(1000);
             //     try {
             //         let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
