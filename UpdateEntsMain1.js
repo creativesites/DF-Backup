@@ -110,11 +110,20 @@ async function run(){
             //   await page1.waitForTimeout(5000);
               
               
-            //     await page1.waitForTimeout(2000)
-            //   await page1.waitForXPath('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
-            //   let nxtB = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
-            //   await page1.waitForTimeout(1000)
-            //   await nxtB[0].click()
+                await page1.waitForTimeout(2000)
+              await page1.waitForXPath('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+              let nxtB = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+              await page1.waitForTimeout(1000)
+              await nxtB[0].click()
+            // await page1.waitForTimeout(1000);
+            //     try {
+            //         let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
+            //         await page1.waitForTimeout(1500);
+            //         await nxt[0].click()
+            //        } catch (error) {
+            //         console.log(error)
+                    
+            //        } 
             if(index === 1){
                 await page1.waitForTimeout(3000)
                 //hover 
@@ -126,15 +135,7 @@ async function run(){
                 await dgf[0].hover()
                 
     
-                await page1.waitForTimeout(1000);
-                try {
-                    let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
-                    await page1.waitForTimeout(1500);
-                    await nxt[0].click()
-                   } catch (error) {
-                    console.log(error)
-                    
-                   } 
+                
                 await page1.waitForTimeout(2000);
                 console.log('hovering done')
                 for (let i = 0; i < ents.length; i++) {
