@@ -247,16 +247,17 @@ async function run(){
             return await fn(page1);
         } finally {
             await pushData()
-            responses = []
+            
             await page1.close();
         }
     }
     
     
 
-    return from(allAgents).pipe(
+    return from(priorityOneAgents).pipe(
         mergeMap(async (el) => {
             return withPage(browser)(async (page1) => {
+              responses = []
                 console.log(`Scraping ${el}`);
                 await doc.useServiceAccountAuth({
                     client_email: CREDENTIALS.client_email,
@@ -265,7 +266,7 @@ async function run(){
               
                 // load the documents info
                 await doc.loadInfo();
-                const sheet = doc.sheetsByTitle['LastTenConv'];
+                const sheet = doc.sheetsByTitle['History'];
                 console.log(sheet.title);
                 let agentId = el.id;
                 let newUrl = `https://dialogflow.cloud.google.com/#/agent/${agentId}/history`;
@@ -277,7 +278,6 @@ async function run(){
                 await page1.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
                 await page1.waitForTimeout(10000);
                
-
                 try {
                   // select 100 rows
                 let xn = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/history/div/div[4]/div[1]/md-select/md-select-value/span[2]', {timeout: 10000});
@@ -462,7 +462,7 @@ async function pushData(){
     console.log(responses.length)
     var config = {
         method: 'post',
-        url: 'https://script.google.com/macros/s/AKfycbw9OYAd3AQd4IBPBjpWovKVbUJwUrnnUSmAZlNNAGwNbaCgMKODo9iFAN_AADMAUZvh/exec?gid=478013772',
+        url: 'https://script.google.com/macros/s/AKfycbw9OYAd3AQd4IBPBjpWovKVbUJwUrnnUSmAZlNNAGwNbaCgMKODo9iFAN_AADMAUZvh/exec?gid=377807407',
         headers: {
         'Content-Type': 'application/json'
         },

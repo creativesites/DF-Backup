@@ -32,6 +32,7 @@
     "fs": "^0.0.1-security",
     "google-spreadsheet": "^3.3.0",
     "http-errors": "^2.0.0",
+    "json-formatter-js": "^2.3.4",
     "jsonfile": "^6.1.0",
     "ml-classify-text": "^2.0.0",
     "moment": "^2.29.4",
