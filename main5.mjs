@@ -203,7 +203,6 @@ async function run() {
                 for (let index = 0; index < changeAgents1.length; index++) {
                     const elv = priorityOneAgents[index]
                     let el = elv
-                    console.log(`running ${elv.name}`)
                     let oj = {
                       USER: el
                   }
