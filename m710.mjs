@@ -302,7 +302,7 @@ async function run(){
     
     
 
-    return from(priorityOneAgents).pipe(
+    return from(allAgents).pipe(
         mergeMap(async (el) => {
             return withPage(browser)(async (page1) => {
               responses = []
