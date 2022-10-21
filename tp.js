@@ -193,7 +193,7 @@ let allAgents = [
         id: 'newagent-hw9g',
         url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hw9g/'
       }
-  ]
+]
   
 let ghy = [45, 44, 43, 35, ]
 

@@ -170,7 +170,7 @@ async function run(){
         async function runEntities(){
           await (async () => {
               
-              for (let index = 1; index < 37; index++) {
+              for (let index = 1; index < 48; index++) {
               let el4 = changeAgents[index];
               console.log(`Updating ${el4} Entities`)
               await UpdateSheet("H4", `Updating ${el4} Entity Started`)

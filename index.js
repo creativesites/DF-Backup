@@ -61,7 +61,6 @@ app.use(express.urlencoded({
 async function run() {
     //puppeteerExtra.use(stealthPlugin());
     const browser = await puppeteer.launch({
-        executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         headless: false,
         defaultViewport: null,
         args: [
@@ -103,7 +102,7 @@ async function run() {
             //await page1.waitForTimeout(10000);
             console.log('BACKUP')
             try {
-                for(let el = 1; el < 37; el ++) {
+                for(let el = 1; el < 48; el ++) {
                     console.log(`Backing up ${el}`)
                     //await UpdateSheet("G4", `Backup ${el} Started`)
                     //select select agent button
@@ -301,8 +300,9 @@ app.post('/upload',(req, res)=>{
     const myPromise3 = new Promise(async(resolve, reject) => {
         console.log('uploading')
         try {
-            await files.map(async (file) => {
-                let filename = zipDirPath + `/${file}`
+            await files.map(async (file, idx) => {
+                setTimeout(async() => {
+                    let filename = zipDirPath + `/${file}`
                 await storage.bucket(bucketName).upload(filename, {
                     gzip: true,
                     metadata: {
@@ -311,7 +311,8 @@ app.post('/upload',(req, res)=>{
                 });
         
                 console.log(`${filename} uploaded to ${bucketName}.`);
-                doneUpload = true;
+                
+                }, 3000 * idx);
             })
             resolve()
         } catch (error) {
@@ -398,8 +399,21 @@ async function UploadFiles() {
     //await createBucket().catch(console.error);
     doneUpload = false
     console.log('uploading')
-    files.map(async (file) => {
-        let filename = zipDirPath + `/${file}`
+    // files.map(async (file) => {
+    //     let filename = zipDirPath + `/${file}`
+    //     await storage.bucket(bucketName).upload(filename, {
+    //         gzip: true,
+    //         metadata: {
+    //             cacheControl: 'public, max-age=31536000',
+    //         },
+    //     });
+
+    //     console.log(`${filename} uploaded to ${bucketName}.`);
+    //     doneUpload = true;
+    // })
+    await files.map(async (file, idx) => {
+        setTimeout(async() => {
+            let filename = zipDirPath + `/${file}`
         await storage.bucket(bucketName).upload(filename, {
             gzip: true,
             metadata: {
@@ -408,7 +422,8 @@ async function UploadFiles() {
         });
 
         console.log(`${filename} uploaded to ${bucketName}.`);
-        doneUpload = true;
+        
+        }, 3000 * idx);
     })
     console.log('uploading done')
 }
@@ -450,8 +465,8 @@ async function Rename() {
     }
     
 }
-run()
+//run()
 //Rename()
 //UploadFiles()
-// const result = findRemoveSync('./backup', { extensions: ['.zip'] })
+//const result = findRemoveSync('./backup', { extensions: ['.zip'] })
 // console.log(result)
