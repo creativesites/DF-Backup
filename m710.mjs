@@ -340,7 +340,7 @@ async function run(){
                 } catch (error) {
                   
                 }
-                let iid = 51
+                let iid = 100
                 for (let idx = 1; idx < iid; idx++){
                     let arrVal = idx;
                     let userSayArr = []
@@ -455,12 +455,14 @@ async function run(){
                               
                           }
                           // check if string contains text
-                          if(convStr.includes('Would you like drop off your vehicle or wait at the dealership?') || convStr.includes('Now, please tell me what services you would like?') || lastStr.includes('Would you like drop off your vehicle or wait at the dealership?') || lastStr.includes('Now, please tell me what services you would like?') ){
+                          let str1 = convStr + '\n' + lastStr
+                          if(str1.includes('Would you like drop off your vehicle or wait at the dealership?') || convStr.includes('Now, please tell me what services you would like?') || lastStr.includes('Would you like drop off your vehicle or wait at the dealership?') || lastStr.includes('Now, please tell me what services you would like?') ){
                               onh.isBookingIntent = true
+                              
                           }else{
                               onh.isBookingIntent = false
                           }
-                          if(convStr.includes('availability') || lastStr.includes('availability')){
+                          if(str1.includes('availability') || lastStr.includes('availability')){
                               onh.TimeSlotsGiven = true
                           }else{
                               onh.TimeSlotsGiven = false
@@ -484,7 +486,7 @@ async function run(){
                         onh.IterationsExceeded = iterationsExceeded;
                         let se = startTime.split(',')
                         let gdh = se[0] + '2022'
-                        let gdh2 = moment(gdh).format('l')
+                        let gdh2 = moment(gdh, 'MMM DD YYYY').format('MM/DD/YYYY')
                         onh.Date = gdh2
                         onh.Time = se[1]
                         onh.UserSays = []
