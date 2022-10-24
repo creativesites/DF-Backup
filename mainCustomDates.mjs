@@ -240,14 +240,18 @@ async function run() {
                     try {
                         //select agent
                         //scroll if needed
-                        await page1.waitForTimeout(5000);
-                        await page1.waitForSelector(`aria/${el}`, {
-                            timeout: 5000
-                        });
-                        await page1.waitForTimeout(1000);
-                        //console.log('selecting agent')
-                        await page1.click(`aria/${el}`);
-                        await page1.waitForTimeout(10000);
+                        try {
+                            await page1.waitForTimeout(5000);
+                            await page1.waitForSelector(`aria/${el}`, {
+                                timeout: 5000
+                            });
+                            await page1.waitForTimeout(1000);
+                            //console.log('selecting agent')
+                            await page1.click(`aria/${el}`);
+                            await page1.waitForTimeout(10000); 
+                        } catch (error) {
+                            continue
+                        }
                         //click history
                         await page1.waitForSelector(`#link-history`, {
                             timeout: 5000

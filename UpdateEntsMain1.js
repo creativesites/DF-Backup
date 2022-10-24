@@ -29,7 +29,7 @@ let ints1 = [7];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
-let ents = [5, 9, 15, 20]
+let ents = [20]
 let changeAgents = [
   '410-StocHyun-8549995374 [en]',
   '371-EnviHondV2-854-999-5365 [en]',
@@ -109,7 +109,7 @@ async function run(){
             await page1.waitForTimeout(1000)
             await nxtB[0].click()
             await page1.waitForTimeout(5000)
-              for (let index = 1; index < 48; index++) {
+              for (let index = 11; index < 48; index++) {
               let el4 = index;
               console.log(`Updating ${el4} Entities`)
             //   await page1.waitForTimeout(5000);
@@ -125,7 +125,7 @@ async function run(){
             //         console.log(error)
                     
             //        } 
-            if(index === 1){
+            if(index === 11){
                 await page1.waitForTimeout(3000)
                 //hover 
                 console.log('hovering over entity')
