@@ -172,8 +172,8 @@ let priorityOneAgents = [
     }
     
   ]
-let startDate = '2022-10-12'
-let endDate = '2022-10-14'
+let startDate = '2022-10-23'
+let endDate = '2022-10-26'
 import {predict} from './classify.js'
 import { range, filter, map, mergeMap, toArray , from} from 'rxjs';
 import { GoogleSpreadsheet } from'google-spreadsheet';
@@ -225,7 +225,7 @@ async function run(){
     
     
 
-    return from(priorityOneAgents).pipe(
+    return from(allAgents).pipe(
         mergeMap(async (el) => {
             return withPage(browser)(async (page1) => {
               responses = []
