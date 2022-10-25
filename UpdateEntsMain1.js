@@ -29,7 +29,7 @@ let ints1 = [7];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
-let ents = [5, 9, 15, 20]
+let ents = [16, 35, 40]
 let changeAgents = [
   '410-StocHyun-8549995374 [en]',
   '371-EnviHondV2-854-999-5365 [en]',

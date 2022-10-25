@@ -64,8 +64,8 @@ let changeAgents1 = [
     '1500-BostVW_____-8323080838'
 ];
 
-let startDate = '2022-10-18'
-let endDate = '2022-10-19'
+let startDate = '2022-10-21'
+let endDate = '2022-10-24'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import mongo from 'mongodb';
@@ -235,15 +235,19 @@ async function run() {
     
                     try {
                         //select agent
-                        //scroll if needed
-                        await page1.waitForTimeout(5000);
-                        await page1.waitForSelector(`aria/${el}`, {
-                            timeout: 5000
-                        });
-                        await page1.waitForTimeout(1000);
-                        //console.log('selecting agent')
-                        await page1.click(`aria/${el}`);
-                        await page1.waitForTimeout(10000);
+                        try {
+                            //scroll if needed
+                            await page1.waitForTimeout(5000);
+                            await page1.waitForSelector(`aria/${el}`, {
+                                timeout: 5000
+                            });
+                            await page1.waitForTimeout(1000);
+                            //console.log('selecting agent')
+                            await page1.click(`aria/${el}`);
+                            await page1.waitForTimeout(10000);
+                        } catch (error) {
+                            continue
+                        }
                         //click history
                         await page1.waitForSelector(`#link-history`, {
                             timeout: 5000

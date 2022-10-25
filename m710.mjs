@@ -314,7 +314,7 @@ async function run(){
               
                 // load the documents info
                 await doc.loadInfo();
-                const sheet = doc.sheetsByTitle['History'];
+                const sheet = doc.sheetsByTitle['LastTenConv'];
                 console.log(sheet.title);
                 let agentId = el.id;
                 let newUrl = `https://dialogflow.cloud.google.com/#/agent/${agentId}/history`;
@@ -340,7 +340,7 @@ async function run(){
                 } catch (error) {
                   
                 }
-                let iid = 100
+                let iid = 11
                 for (let idx = 1; idx < iid; idx++){
                     let arrVal = idx;
                     let userSayArr = []
