@@ -145,7 +145,7 @@ async function run(){
                        } 
                        e4 = 1
                 }
-                if (e4 > 21  && tEnt === false) {
+                if (e4 === 35) {
                     tEnt = true
                   await page1.waitForTimeout(1000);
                   try {
