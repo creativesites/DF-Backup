@@ -161,19 +161,21 @@ async function run(){
                 if( e4 > 21){
                     e4 = e4 - 20
                 }
-                await page1.waitForTimeout(3000)
-                //hover 
+                await page1.waitForTimeout(6000)
+                if(i !== 2){
+                  //hover 
                 console.log('hovering over entity')
                 
                 //await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${ents[0]}]`, {timeout: 5000});
                 await page1.waitForTimeout(1000);
-                let dgf = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${ents[0]}]`, {timeout: 5000});
+                let dgf = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]`, {timeout: 5000});
                 await dgf[0].hover()
                 
     
                 
                 await page1.waitForTimeout(2000);
-                await page1.waitForTimeout(4000);
+                }
+                await page1.waitForTimeout(1000);
                 console.log('after')
                 console.log(e4)
                 await page1.waitForTimeout(1000);
