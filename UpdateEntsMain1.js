@@ -52,8 +52,6 @@ let appErrStage = '';
 let appErrAgent = '';
 let entsNum = 0
 let intsNum = 0
-const zipDirPath = resolve(__dirname, 'backup');
-const files = readdirSync(zipDirPath);
 var app = express();
 app.use(function(err, req, res, next) {
  
@@ -103,11 +101,11 @@ async function run(){
         
         async function runEntities(){
           await (async () => {
-            await page1.waitForTimeout(2000)
-            await page1.waitForXPath('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
-            let nxtB = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
-            await page1.waitForTimeout(1000)
-            await nxtB[0].click()
+            // await page1.waitForTimeout(2000)
+            // await page1.waitForXPath('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+            // let nxtB = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]')
+            // await page1.waitForTimeout(1000)
+            // await nxtB[0].click()
             await page1.waitForTimeout(5000)
               for (let index = 1; index < 48; index++) {
               let el4 = index;
@@ -127,7 +125,7 @@ async function run(){
             //        } 
             if(index === 1){
                 
-                console.log('hovering done')
+                
                 for (let i = 0; i < ents.length; i++) {
                 let e4 = ents[i]
                 if(i === 0){
