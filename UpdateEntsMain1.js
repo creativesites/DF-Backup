@@ -29,7 +29,7 @@ let ints1 = [7];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
-let ents = [16, 35, 40]
+let ents = [20]
 let changeAgents = [
   '410-StocHyun-8549995374 [en]',
   '371-EnviHondV2-854-999-5365 [en]',
@@ -128,32 +128,32 @@ async function run(){
                 
                 for (let i = 0; i < ents.length; i++) {
                 let e4 = ents[i]
-                if(i === 0){
-                  console.log('hovering over entity')
+                // if(i === 0){
+                //   console.log('hovering over entity')
                 
-                //await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${ents[0]}]`, {timeout: 5000});
-                await page1.waitForTimeout(1000);
-                let dgf = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]`, {timeout: 5000});
-                await dgf[0].hover()
+                // //await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${ents[0]}]`, {timeout: 5000});
+                // await page1.waitForTimeout(1000);
+                // let dgf = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]`, {timeout: 5000});
+                // await dgf[0].hover()
                 
     
                 
-                await page1.waitForTimeout(2000);
-                await page1.waitForTimeout(1000);
-                console.log('after')
-                console.log(e4)
-                await page1.waitForTimeout(1000);
-                await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                    timeout: 5000
-                });
-                await page1.waitForTimeout(1000);
-                let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                    timeout: 5000
-                });
-                await ell1[0].click();
-                }
-                if(i===1){
-                  e4 = 15
+                // await page1.waitForTimeout(2000);
+                // await page1.waitForTimeout(1000);
+                // console.log('after')
+                // console.log(e4)
+                // await page1.waitForTimeout(1000);
+                // await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                //     timeout: 5000
+                // });
+                // await page1.waitForTimeout(1000);
+                // let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                //     timeout: 5000
+                // });
+                // await ell1[0].click();
+                // }
+                if(i===0){
+                  e4 = 20
                   await page1.waitForTimeout(3000);
                   try {
                     let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
@@ -177,22 +177,22 @@ async function run(){
                 await ell1[0].click();
                 await page1.waitForTimeout(2000);
                 }
-                if(i===2){
-                  e4 = 20
-                  await page1.waitForTimeout(1000);
-                console.log('after')
-                console.log(e4)
-                await page1.waitForTimeout(1000);
-                await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                    timeout: 5000
-                });
-                await page1.waitForTimeout(1000);
-                let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                    timeout: 5000
-                });
-                await ell1[0].click();
-                await page1.waitForTimeout(2000);
-                }
+                // if(i===2){
+                //   e4 = 20
+                //   await page1.waitForTimeout(1000);
+                // console.log('after')
+                // console.log(e4)
+                // await page1.waitForTimeout(1000);
+                // await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                //     timeout: 5000
+                // });
+                // await page1.waitForTimeout(1000);
+                // let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                //     timeout: 5000
+                // });
+                // await ell1[0].click();
+                // await page1.waitForTimeout(2000);
+                // }
                 
               }
             }
