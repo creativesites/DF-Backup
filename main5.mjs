@@ -61,11 +61,15 @@ let changeAgents1 = [
     '406-GalpPors-854-999-5322',
     '407-GalpVolk-512-518-0344',
     '408-GalpVolv-484-245-4314',
-    '1500-BostVW_____-8323080838'
+    '500-BostVW_____-8323080838',
+    '510-NortFordCoun-8323080811',
+    '540-MorgHyunFtMy-8603170801',
+    '545-PremKia_Carl-8323080831',
+    'x373-EnviHond-BDC1-8592129746'
 ];
 
-let startDate = '2022-10-23'
-let endDate = '2022-10-26'
+let startDate = '2022-10-26'
+let endDate = '2022-10-29'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import mongo from 'mongodb';
