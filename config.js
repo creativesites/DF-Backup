@@ -1,4 +1,5 @@
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
+import clipboard from 'clipboardy';
 let arr = [];
 async function run(){
     const browser = await puppeteer.launch({ 
@@ -32,48 +33,51 @@ async function run(){
     async function getEnts() {
         for (let index = 1; index < 42; index++) {
             let el = index;
-            if(el === 21){
-                el = 1
-                try {
-                    let nxt = await page.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
-                    await page.waitForTimeout(1500);
-                    await nxt[0].click()
-                } catch (error) {
-                    console.log(error)
-                    
-                } 
-                await page.waitForTimeout(5000);
+            await page1.waitForTimeout(9000);
+            await page1.waitForSelector('#agents-dropdown-toggle > span.icon-right.icon-caret', {
+                timeout: 5000
+            });
+            await page1.waitForTimeout(1000);
+            console.log('selecting select agent button')
+            await page1.click('#agents-dropdown-toggle > span.icon-right.icon-caret')
+            await page1.waitForTimeout(5000);
+            console.log('selecting agent to copy from')
+            await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${el}]/a`)
+            let agntToBackup = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${el}]/a`)
+            await page1.waitForTimeout(1000);
+            await agntToBackup[0].click()
+            await page1.waitForTimeout(10000);
+            //click history
+            await page1.waitForSelector(`#link-history`, {
+                timeout: 5000
+            });
+            await page1.waitForTimeout(1500);
+            console.log('selecting history')
+            await page1.click(`#link-history`);
+            await page1.waitForTimeout(15000);
+            let cpy = await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`, {timeout: 5000})
+            await page1.waitForTimeout(1000)
+            //await scrollIntoViewIfNeeded(cpy, 6000);
+            await page1.click(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`)
+            await page1.waitForTimeout(1000);
+            await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > interactions > div > div.content-section-interactions > div:nth-child(2) > div.agent.layout-align-start-center.layout-row > div.layout-align-end-center.layout-row.flex-45 > span:nth-child(3) > md-menu > md-icon`);
+            await page1.waitForTimeout(1000);
+            await page1.click(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > interactions > div > div.content-section-interactions > div:nth-child(2) > div.agent.layout-align-start-center.layout-row > div.layout-align-end-center.layout-row.flex-45 > span:nth-child(3) > md-menu > md-icon`);
+            await page1.waitForTimeout(1000);
+            await page1.waitForSelector('aria/Raw interaction log');
+            await page1.click('aria/Raw interaction log');
 
-            }
-            if(el > 21 && el < 41){
-                el = el - 20;
-            }
-            if(el === 41){
-                el = 1;
-                try {
-                    let nxt = await page.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
-                    await page.waitForTimeout(1500);
-                    await nxt[0].click()
-                } catch (error) {
-                    console.log(error)
-                    
-                } 
-                await page.waitForTimeout(5000);
-            }
-            // await page.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${el}]/a/span`)
-            // let entEl = await page.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${el}]/a/span`)
-            // // get text from entEl
-            // let txt = await page.evaluate(element => element.textContent, entEl);
-            // arr.push(txt)
-            // console.log(txt)
-            await page.waitForTimeout(1500);
-            await page.waitForSelector(`#tab-content-364 > div > custom-entities-list > div > ul > li:nth-child(${el}) > a > span`)
-            await page.waitForTimeout(1500);
-            let entsEl = await page.$(`#tab-content-364 > div > custom-entities-list > div > ul > li:nth-child(${el}) > a > span`)
-            let txt2 = await page.evaluate(element => element.textContent, entsEl);
-            console.log(txt2)
-            arr.push(txt2)
-            
+            // get data
+            await page1.waitForTimeout(5000);
+            await page1.waitForSelector('aria/COPY');
+            await page1.waitForTimeout(1000);
+            await page1.click('aria/COPY')
+            await page1.waitForTimeout(3000);
+            let dd = clipboard.readSync()
+            //console.log(dd)
+            let ds = JSON.parse(JSON.stringify(dd))
+            console.log(ds)
+
         }
     }
     await getEnts()
