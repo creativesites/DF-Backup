@@ -29,7 +29,7 @@ let ints1 = [7];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
-let ents = [20]
+let ents = [25, 29, 40]
 let changeAgents = [
   '410-StocHyun-8549995374 [en]',
   '371-EnviHondV2-854-999-5365 [en]',
@@ -62,7 +62,7 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-const PORT = 3000;
+const PORT = 3010;
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -126,7 +126,7 @@ async function run(){
             if(index === 1){
                 
                 
-                for (let i = 0; i < ents.length; i++) {
+                for (let i = 0; i < 2; i++) {
                 let e4 = ents[i]
                 // if(i === 0){
                 //   console.log('hovering over entity')
@@ -153,7 +153,7 @@ async function run(){
                 // await ell1[0].click();
                 // }
                 if(i===0){
-                  e4 = 20
+                  e4 = 5
                   await page1.waitForTimeout(3000);
                   
                   try {
@@ -181,8 +181,37 @@ async function run(){
                 let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
                     timeout: 5000
                 });
+                console.log('clicking ONE')
                 await ell1[0].click();
                 await page1.waitForTimeout(2000);
+                }
+                if(i === 1){
+                  e4 = 9
+                  await page1.waitForTimeout(1000);
+                  await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                      timeout: 5000
+                  });
+                  await page1.waitForTimeout(1000);
+                  let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                      timeout: 5000
+                  });
+                  console.log('clicking TWO')
+                  await ell1[0].click();
+                  await page1.waitForTimeout(2000);
+                }
+                if(i===2){
+                  e4 = 20
+                  await page1.waitForTimeout(1000);
+                  await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                      timeout: 5000
+                  });
+                  await page1.waitForTimeout(1000);
+                  let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                      timeout: 5000
+                  });
+                  console.log('clicking THREE')
+                  await ell1[0].click();
+                  await page1.waitForTimeout(2000);
                 }
                 // if(i===2){
                 //   e4 = 20

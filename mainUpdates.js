@@ -25,7 +25,7 @@ let done = false;
 let tEnt = false;
 let tInt = false;
 let agent = '00-000-DEV1-FY-8323176701';
-let ints1 = [5, 6,7,8, 9, 10,11, 12, 13];
+let ints1 = [8];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
@@ -64,7 +64,7 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-const PORT = 3000;
+const PORT = 3005;
 
 app.use(logger('dev'));
 app.use(express.json());
