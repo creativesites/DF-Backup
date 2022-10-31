@@ -1,6 +1,7 @@
 import puppeteer from 'puppeteer';
 import clipboard from 'clipboardy';
 let arr = [];
+let arrVal = 1;
 async function run(){
     const browser = await puppeteer.launch({ 
         headless: false, 
@@ -33,46 +34,46 @@ async function run(){
     async function getEnts() {
         for (let index = 1; index < 42; index++) {
             let el = index;
-            await page1.waitForTimeout(9000);
-            await page1.waitForSelector('#agents-dropdown-toggle > span.icon-right.icon-caret', {
+            await page.waitForTimeout(9000);
+            await page.waitForSelector('#agents-dropdown-toggle > span.icon-right.icon-caret', {
                 timeout: 5000
             });
-            await page1.waitForTimeout(1000);
+            await page.waitForTimeout(1000);
             console.log('selecting select agent button')
-            await page1.click('#agents-dropdown-toggle > span.icon-right.icon-caret')
-            await page1.waitForTimeout(5000);
+            await page.click('#agents-dropdown-toggle > span.icon-right.icon-caret')
+            await page.waitForTimeout(5000);
             console.log('selecting agent to copy from')
-            await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${el}]/a`)
-            let agntToBackup = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${el}]/a`)
-            await page1.waitForTimeout(1000);
+            await page.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${el}]/a`)
+            let agntToBackup = await page.$x(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${el}]/a`)
+            await page.waitForTimeout(1000);
             await agntToBackup[0].click()
-            await page1.waitForTimeout(10000);
+            await page.waitForTimeout(10000);
             //click history
-            await page1.waitForSelector(`#link-history`, {
+            await page.waitForSelector(`#link-history`, {
                 timeout: 5000
             });
-            await page1.waitForTimeout(1500);
+            await page.waitForTimeout(1500);
             console.log('selecting history')
-            await page1.click(`#link-history`);
-            await page1.waitForTimeout(15000);
-            let cpy = await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`, {timeout: 5000})
-            await page1.waitForTimeout(1000)
+            await page.click(`#link-history`);
+            await page.waitForTimeout(15000);
+            let cpy = await page.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`, {timeout: 5000})
+            await page.waitForTimeout(1000)
             //await scrollIntoViewIfNeeded(cpy, 6000);
-            await page1.click(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`)
-            await page1.waitForTimeout(1000);
-            await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > interactions > div > div.content-section-interactions > div:nth-child(2) > div.agent.layout-align-start-center.layout-row > div.layout-align-end-center.layout-row.flex-45 > span:nth-child(3) > md-menu > md-icon`);
-            await page1.waitForTimeout(1000);
-            await page1.click(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > interactions > div > div.content-section-interactions > div:nth-child(2) > div.agent.layout-align-start-center.layout-row > div.layout-align-end-center.layout-row.flex-45 > span:nth-child(3) > md-menu > md-icon`);
-            await page1.waitForTimeout(1000);
-            await page1.waitForSelector('aria/Raw interaction log');
-            await page1.click('aria/Raw interaction log');
+            await page.click(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`)
+            await page.waitForTimeout(1000);
+            await page.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > interactions > div > div.content-section-interactions > div:nth-child(2) > div.agent.layout-align-start-center.layout-row > div.layout-align-end-center.layout-row.flex-45 > span:nth-child(3) > md-menu > md-icon`);
+            await page.waitForTimeout(1000);
+            await page.click(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > interactions > div > div.content-section-interactions > div:nth-child(2) > div.agent.layout-align-start-center.layout-row > div.layout-align-end-center.layout-row.flex-45 > span:nth-child(3) > md-menu > md-icon`);
+            await page.waitForTimeout(1000);
+            await page.waitForSelector('aria/Raw interaction log');
+            await page.click('aria/Raw interaction log');
 
             // get data
-            await page1.waitForTimeout(5000);
-            await page1.waitForSelector('aria/COPY');
-            await page1.waitForTimeout(1000);
-            await page1.click('aria/COPY')
-            await page1.waitForTimeout(3000);
+            await page.waitForTimeout(5000);
+            await page.waitForSelector('aria/COPY');
+            await page.waitForTimeout(1000);
+            await page.click('aria/COPY')
+            await page.waitForTimeout(3000);
             let dd = clipboard.readSync()
             //console.log(dd)
             let ds = JSON.parse(JSON.stringify(dd))
