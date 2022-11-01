@@ -240,9 +240,9 @@ async function run(){
       height: 600
   })
   await page.waitForTimeout(15000);
-    for (let index = 1; index < 50; index++) {
-      
-      await page.waitForTimeout(2000);
+    for (let index = 13; index < 50; index++) {
+      try {
+        await page.waitForTimeout(2000);
                     try {
                       console.log('selecting select agent button')
                     await page.waitForSelector('#agents-dropdown-toggle > span.icon-right.icon-caret', {
@@ -306,6 +306,7 @@ async function run(){
             await page.waitForTimeout(3000);
             let dd = clipboard.readSync()
             //console.log(dd)
+            let obj = {};
             let ds = JSON.parse(dd)
            obj.agent = agntName;
            let p = ds.action;
@@ -327,6 +328,11 @@ async function run(){
             await page.waitForTimeout(2000);
             await page.waitForSelector('aria/CLOSE')
              await page.click('aria/CLOSE')
+      } catch (error) {
+        console.log(index)
+        continue
+      }
+      
     }
     //await browser.close();
 }
