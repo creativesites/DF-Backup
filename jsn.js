@@ -567,4 +567,17 @@ async function ab(){
 delete c.parameters;
 // merge all keys into one object
 let obj = Object.assign({}, c, pz);
-console.log(obj);
+//console.log(obj);
+
+let p = a.action;
+let q = a.fulfillmentText
+q = q.replace(/<[^>]*>?/gm, '');
+q = q.replace(/&nbsp;/g, ' ');
+console.log(q);
+console.log(p);
+let r = a.outputContexts;
+// get all names from r
+let names = r.map((item) => item.name);
+// names to string
+let namesString = names.join(', ');
+console.log(namesString);

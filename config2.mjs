@@ -307,20 +307,22 @@ async function run(){
             let dd = clipboard.readSync()
             //console.log(dd)
             let ds = JSON.parse(dd)
-           // console.log(ds)
-           let b = ds.outputContexts
-          // console.log(b.length)
-            let c  = b[2]
-            let keys = Object.keys(c);
-
-            let pz = c.parameters;
-            let keys2 = Object.keys(pz);
-            let allKeys = keys.concat(keys2);
-            // remove parameters from c
-            delete c.parameters;
-            // merge all keys into one object
-            let obj = Object.assign({}, c, pz);
-           obj.Agent = agntName;
+           obj.agent = agntName;
+           let p = ds.action;
+          let q = ds.fulfillmentText
+          q = q.replace(/<[^>]*>?/gm, '');
+          q = q.replace(/&nbsp;/g, ' ');
+          console.log(q);
+          console.log(p);
+          let r = ds.outputContexts;
+          // get all names from r
+          let names = r.map((item) => item.name);
+          // names to string
+          let namesString = names.join(', ');
+          console.log(namesString);
+          obj.action = p;
+          obj.fulfillmentText = q;
+          obj.outputContexts = namesString;
             await sheet.addRow(obj);
             await page.waitForTimeout(2000);
             await page.waitForSelector('aria/CLOSE')
