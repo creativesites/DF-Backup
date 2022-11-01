@@ -240,7 +240,7 @@ async function run(){
       height: 600
   })
   await page.waitForTimeout(15000);
-    for (let index = 13; index < 50; index++) {
+    for (let index = 1; index < 50; index++) {
       
       await page.waitForTimeout(2000);
                     try {
