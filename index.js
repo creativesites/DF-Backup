@@ -102,7 +102,7 @@ async function run() {
             //await page1.waitForTimeout(10000);
             console.log('BACKUP')
             try {
-                for(let el = 1; el < 48; el ++) {
+                for(let el = 7; el < 50; el ++) {
                     console.log(`Backing up ${el}`)
                     //await UpdateSheet("G4", `Backup ${el} Started`)
                     //select select agent button
@@ -465,8 +465,8 @@ async function Rename() {
     }
     
 }
-//run()
+run()
 //Rename()
 //UploadFiles()
- const result = findRemoveSync('./backup', { extensions: ['.zip'] })
+// const result = findRemoveSync('./backup', { extensions: ['.zip'] })
 // console.log(result)
