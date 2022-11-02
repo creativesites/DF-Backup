@@ -126,7 +126,7 @@ async function run(){
             if(index === 1){
                 
                 
-                for (let i = 0; i < 2; i++) {
+                for (let i = 0; i < 3; i++) {
                 let e4 = ents[i]
                 // if(i === 0){
                 //   console.log('hovering over entity')
