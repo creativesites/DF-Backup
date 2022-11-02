@@ -25,7 +25,7 @@ let done = false;
 let tEnt = false;
 let tInt = false;
 let agent = '00-000-DEV1-FY-8323176701';
-let ints1 = [6];
+let ints1 = [6,7,11,13];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
@@ -170,7 +170,7 @@ async function run(){
         async function runEntities(){
           await (async () => {
               
-              for (let index = 1; index < 37; index++) {
+              for (let index = 1; index < 50; index++) {
               let el4 = changeAgents[index];
               console.log(`Updating ${el4} Entities`)
               await UpdateSheet("H4", `Updating ${el4} Entity Started`)
