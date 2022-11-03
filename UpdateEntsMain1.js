@@ -29,7 +29,7 @@ let ints1 = [7];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
-let ents = [25, 29, 40]
+let ents = [25, 35, 41]
 let changeAgents = [
   '410-StocHyun-8549995374 [en]',
   '371-EnviHondV2-854-999-5365 [en]',
@@ -107,7 +107,7 @@ async function run(){
             // await page1.waitForTimeout(1000)
             // await nxtB[0].click()
             await page1.waitForTimeout(5000)
-              for (let index = 1; index < 48; index++) {
+              for (let index = 1; index < 50; index++) {
               let el4 = index;
               console.log(`Updating ${el4} Entities`)
             //   await page1.waitForTimeout(5000);
@@ -186,7 +186,7 @@ async function run(){
                 await page1.waitForTimeout(2000);
                 }
                 if(i === 1){
-                  e4 = 9
+                  e4 = 15
                   await page1.waitForTimeout(1000);
                   await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
                       timeout: 5000
@@ -200,8 +200,16 @@ async function run(){
                   await page1.waitForTimeout(2000);
                 }
                 if(i===2){
-                  e4 = 20
-                  await page1.waitForTimeout(1000);
+                  e4 = 1
+                  try {
+                    let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
+                    await page1.waitForTimeout(1500);
+                    await nxt[0].click()
+                   } catch (error) {
+                    console.log(error)
+                    
+                   } 
+                  await page1.waitForTimeout(5000);
                   await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
                       timeout: 5000
                   });
