@@ -303,8 +303,11 @@ async function run(){
             await page.waitForTimeout(1000);
             await page.click('aria/COPY')
             await page.waitForTimeout(3000);
+            let ohrt = {}
+            ohrt.name = agntName;
             let dd = clipboard.readSync()
-            arr.push(dd)
+            ohrt.data = dd;
+            arr.push(ohrt)
             //console.log(dd)
             try {
                 let obj = {};
