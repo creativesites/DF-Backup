@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 import clipboard from 'clipboardy';
 import axios from'axios';
-import * as jsonfile from 'jsonfile';
+import jsonfile from 'jsonfile';
 const file = './tmp.json';
 const file1 = './tmp1.json'
 let arr = [];
