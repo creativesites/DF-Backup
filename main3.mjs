@@ -19,10 +19,50 @@ import ncp from"copy-paste";
 const file = './data.json'
 //let changeAgents1 = ['410-StocHyun-8549995374'];
 //let changeAgents1 = ['410-StocHyun-8549995374', '371-EnviHondV2-854-999-5365','300-AutoPorX-816-281-6544'];
-let changeAgents1 = ['410-StocHyun-8549995374', '371-EnviHondV2-854-999-5365','300-AutoPorX-816-281-6544', '00-005-LtoyoBellR-8184939734', '00-002-CfordNapa-8184929153', '00-003-XhondTaz-8184929306', '330-SansKia_-818-493-9849', '331-SansMits-818-493-9971', '332-SansNiss-818-493-9961',  '00-001-MkiaHambra-3238142465', '380-RegaNiss-BDC-8323088796', '00-004-NhondSerra__-7072421465', '00-006-XhondGalp-6174025457', '300-AutoPorsBell-8162816544', '301-AutoMercBell-3602271073', '342-HansBwm-B+R-8603176527', '343-HansVolk-B+R-8549995347', '372-EnviToyo-BDC-8592036683', '373-EnviHond-BDC-8592129632', '373-EnviHondBDC+REC-8549995365', '375-EnviMercEscoX-8549995359', '376-EnviMercWCovK-8592129755', '377-EnviAudiWCovK-8592129826', '378-EnviCDJRWCovF-8549995366', '383-EnviJLR_Cerr-6152705405', '382-EnviFordOxna-8549995371', '384-EnviToyoNorwC-6143853839', '385-EnviToyoWCovC-8592129845', '420-TuttleClickFord-860-317-6720', '400-GalpFord-818-492-9740', '00-006-XhondGalp-6174025457'];
-
-let startDate = '2022-09-13'
-let endDate = '2022-09-16'
+let changeAgents1 = [
+    '372-EnviToyo-BDC-8592036683',
+    '00-002-CfordNapa-8184929153',
+    '00-003-XhondTaz-8184929306',
+    '00-004-NhondSerra__-7072421465',
+    '00-006-XhondGalp-6174025457',
+    '330-SansKia_-818-493-9849',
+    '331-SansMits-818-493-9971',
+    '332-SansNiss-818-493-9961',
+    '373-EnviHond-BDCREC-8549995365',
+    '375-EnviMercEscoX-8549995359',
+    '376-EnviMercWCovK-8592129755',
+    '377-EnviAudiWCovK-8592129826',
+    '378-EnviCDJRWCovF-8549995366',
+    '382-EnviFordOxna-8549995371',
+    '382-EnviFordOxna-8549995371',
+    '383-EnviJLR_Cerr-6152705405',
+    '384-EnviToyoNorwC-6143853839',
+    '385-EnviToyoWCovC-8592129845',
+    '400-GalpFord-818-492-9740',
+    '401-GalpJagu-854-999-5316',
+    '404-GalpLinc-516-274-7227',
+    '404-GalpLinc-516-274-7227',
+    '405-GalpMazd-854-999-5318',
+    '406-GalpPors-854-999-5322',
+    '407-GalpVolk-512-518-0344',
+    '408-GalpVolv-484-245-4314',
+    '420-TuttleClickFord-8603176720',
+    '420-TuttleClickFord-8603176720',
+    '440-KnigCDJRClar-8323063418',
+    '500-BostVW_____-8323080838',
+    '510-NortFordCoun-8323080811',
+    '540-MorgHyunFtMy-8603170801',
+    '541-PremKia_Carl-8323080831',
+    'X-001-MkiaHambra-3238142465',
+    'X-005-LtoyoBellR-8184939734',
+    'x301-AutoMercBell-3602271073',
+    'x342-HansBwmBDCREC-8603176527',
+    'x343-HansVolkBDCREC-8549995347',
+    'x373-EnviHond-BDC1-8592129746'
+]
+//changeAgents1 = changeAgents1.reverse()
+let startDate = '2022-10-31'
+let endDate = '2022-11-04'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import mongo from 'mongodb';
@@ -71,7 +111,7 @@ import CREDENTIALS  from "./sheets.json" assert { type: "json" };
 const RESPONSES_SHEET_ID = '1gza3a05wWV4bt7c9pMyJsm43hpbCpPx84Uctym2zjOg';
 const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
 const PORT = 3004;
-
+let tempArr = []
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -127,6 +167,7 @@ async function run() {
             try {
                 for (let index = 0; index < changeAgents1.length; index++) {
                     const el = changeAgents1[index]
+                    tempArr = []
                     console.log(`running ${el}`)
                     let oj = {
                       USER: el
@@ -185,6 +226,15 @@ async function run() {
                         async function getC(){
                             console.log('in conv')
                             await page1.waitForTimeout(5000);
+                            let xn = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/history/div/div[4]/div[1]/md-select/md-select-value/span[2]', {timeout: 10000});
+                            await page1.waitForTimeout(4500);
+                            await xn[0].click()
+                            await page1.waitForTimeout(2500);
+                            await page1.waitForTimeout(1000);
+                            await page1.waitForSelector('aria/100')
+                            await page1.waitForTimeout(1000);
+                            await page1.click('aria/100');
+                            await page1.waitForTimeout(15000);
                           for (let idx = 1; idx < iid; idx++) {
                             await page1.waitForTimeout(5000);
                               let arrVal = idx;
@@ -278,15 +328,7 @@ async function run() {
                            let bboking = false;
                            let numOfIterations = 0
                            let iterationsExceeded = false
-                           let xn = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/history/div/div[4]/div[1]/md-select/md-select-value/span[2]', {timeout: 10000});
-                            await page1.waitForTimeout(4500);
-                            await xn[0].click()
-                            await page1.waitForTimeout(2500);
-                            await page1.waitForTimeout(1000);
-                            await page1.waitForSelector('aria/100')
-                            await page1.waitForTimeout(1000);
-                            await page1.click('aria/100');
-                            await page1.waitForTimeout(15000);
+                          
                             
                            if(idx === 101){
                             await page1.waitForTimeout(2000)
@@ -451,11 +493,32 @@ async function run() {
                                 } catch (error) {
                                     
                                 }
+                                let str1 = convStr + '\n' + lastStr
+                                if(str1.includes('Would you like drop off your vehicle or wait at the dealership?') || convStr.includes('Now, please tell me what services you would like?') || convStr.includes('Please say your vehicle') || lastStr.includes('Would you like drop off your vehicle or wait at the dealership?') || lastStr.includes('Now, please tell me what services you would like?') || lastStr.includes('Please say your vehicle')){
+                                    onh.isBookingIntent = true
+                                }else{
+                                    onh.isBookingIntent = false
+                                }
+                                if(str1.includes('availability') || lastStr.includes('Please select a time, say next, or say a date')){
+                                    onh.TimeSlotsGiven = true
+                                }else{
+                                    onh.TimeSlotsGiven = false
+                                }
+                                if(lastStr.includes('booked')){
+                                    onh.BookingCompleted = true
+                                }else{
+                                    onh.BookingCompleted = false
+                                }
                               onh.CallTime = startTime;
                               onh.Conversations = convStr;
                               onh.LastIteration = lastStr;
                               onh.Iterations = numConv;
-                             
+                              let bs = startTime.split(' ')
+                              let cse = bs[1].trim()
+                                // remove comma from string
+                                let ds = cse.replace(',', '');
+                                let dse = '11/' + ds + '/2022';
+                                onh.Date = dse;
                               onh.TrainingString = TrainingString;
                               onh.Type = type;
                               onh.UserSays = userSayArr;
@@ -468,13 +531,14 @@ async function run() {
                               onh.Time = secondsSinceEpoch
                               const moreRows = await sheet.addRow(onh);
                              
-                              let save = await Log.create(onh)
+                              //let save = await Log.create(onh)
                               //console.log(save instanceof Log)
                               onh.WebhookObject =""
                               onh.UserSays = []
                                onh.AgentSays = []
                                await sheet.addRow(onh)
                               convArr.push(onh)
+                              tempArr.push(onh)
                               await page1.waitForTimeout(1000);
                               await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > interactions > div > div.header.layout-align-center-center.layout-row > div.action-buttons.unselectable.flex-45`, {timeout: 15000});
                               await page1.waitForTimeout(1000);
@@ -485,6 +549,7 @@ async function run() {
                       }
                       try {
                         await getC()
+                        await pushData()
                       } catch (error) {
                         console.log(error)
                       }
@@ -511,7 +576,7 @@ async function run() {
         }
 
         async function pushData(){
-            var data = JSON.stringify(convArr);
+            var data = JSON.stringify(tempArr);
             console.log(convArr.length)
             var config = {
                 method: 'post',
@@ -521,16 +586,16 @@ async function run() {
                 },
                 data: data
             };
-            await doc.useServiceAccountAuth({
-                client_email: CREDENTIALS.client_email,
-                private_key: CREDENTIALS.private_key
-              });
+            // await doc.useServiceAccountAuth({
+            //     client_email: CREDENTIALS.client_email,
+            //     private_key: CREDENTIALS.private_key
+            //   });
           
-              // load the documents info
-              await doc.loadInfo();
-              const sheet = await doc.sheetsByTitle['History'];
-              console.log(sheet.title);
-              await sheet.addRows(convArr)
+            //   // load the documents info
+            //   await doc.loadInfo();
+            //   const sheet = await doc.sheetsByTitle['History'];
+            //   console.log(sheet.title);
+            //   await sheet.addRows(convArr)
             axios(config)
             .then(function (response) {
             console.log(JSON.stringify(response.data));

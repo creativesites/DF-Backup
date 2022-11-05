@@ -248,8 +248,8 @@ let allAgents = [
       url: 'https://dialogflow.cloud.google.com/#/editAgent/ea5-mtpc/'
     }
 ]
-let startDate = '2022-10-23'
-let endDate = '2022-10-26'
+let startDate = '2022-10-31'
+let endDate = '2022-11-04'
 import {predict} from './classify.js'
 import { range, filter, map, mergeMap, toArray , from} from 'rxjs';
 import { GoogleSpreadsheet } from'google-spreadsheet';
@@ -357,7 +357,7 @@ async function run(){
                 await page1.waitForTimeout(1000);
                 await page1.click('aria/100');
                 await page1.waitForTimeout(15000);
-                let iid = 50
+                let iid = 500
                 for (let idx = 1; idx < iid; idx++){
                     let arrVal = idx;
                     let userSayArr = []
@@ -372,51 +372,51 @@ async function run(){
                     let numOfIterations = 0
                     let iterationsExceeded = false
                     try{
-                        // if(idx === 101){
-                        //     await page1.waitForTimeout(2000)
-                        //     await page1.waitForSelector('aria/navigate_next')
-                        //     await page1.waitForTimeout(1000)
-                        //     await page1.click('aria/navigate_next');
-                        //     await page1.waitForTimeout(5000);
-                        //     arrVal -= 100
-                        //    }
-                        //    if(idx > 101 && idx < 201){
-                        //     arrVal -= 100
-                        //    }
-                        //    if(idx === 201){
-                        //     await page1.waitForTimeout(2000)
-                        //     await page1.waitForSelector('aria/navigate_next')
-                        //     await page1.waitForTimeout(1000)
-                        //     await page1.click('aria/navigate_next');
-                        //     await page1.waitForTimeout(5000);
-                        //     arrVal -= 200
-                        //    }
-                        //    if(idx > 201 && idx < 301){
-                        //     arrVal -= 200
-                        //    }
-                        //    if(idx === 301){
-                        //     await page1.waitForTimeout(2000)
-                        //     await page1.waitForSelector('aria/navigate_next')
-                        //     await page1.waitForTimeout(1000)
-                        //     await page1.click('aria/navigate_next');
-                        //     await page1.waitForTimeout(5000);
-                        //     arrVal -= 300
-                        //    }
-                        //    if(idx > 301 && idx < 401){
-                        //     arrVal -= 300
-                        //    }
+                        if(idx === 101){
+                            await page1.waitForTimeout(2000)
+                            await page1.waitForSelector('aria/navigate_next')
+                            await page1.waitForTimeout(1000)
+                            await page1.click('aria/navigate_next');
+                            await page1.waitForTimeout(5000);
+                            arrVal -= 100
+                           }
+                           if(idx > 101 && idx < 201){
+                            arrVal -= 100
+                           }
+                           if(idx === 201){
+                            await page1.waitForTimeout(2000)
+                            await page1.waitForSelector('aria/navigate_next')
+                            await page1.waitForTimeout(1000)
+                            await page1.click('aria/navigate_next');
+                            await page1.waitForTimeout(5000);
+                            arrVal -= 200
+                           }
+                           if(idx > 201 && idx < 301){
+                            arrVal -= 200
+                           }
+                           if(idx === 301){
+                            await page1.waitForTimeout(2000)
+                            await page1.waitForSelector('aria/navigate_next')
+                            await page1.waitForTimeout(1000)
+                            await page1.click('aria/navigate_next');
+                            await page1.waitForTimeout(5000);
+                            arrVal -= 300
+                           }
+                           if(idx > 301 && idx < 401){
+                            arrVal -= 300
+                           }
 
-                        //    if(idx === 401){
-                        //     await page1.waitForTimeout(2000)
-                        //     await page1.waitForSelector('aria/navigate_next')
-                        //     await page1.waitForTimeout(1000)
-                        //     await page1.click('aria/navigate_next');
-                        //     await page1.waitForTimeout(5000);
-                        //     arrVal -= 400
-                        //    }
-                        //    if(idx > 401 && idx < 501){
-                        //     arrVal -= 400
-                        //    }
+                           if(idx === 401){
+                            await page1.waitForTimeout(2000)
+                            await page1.waitForSelector('aria/navigate_next')
+                            await page1.waitForTimeout(1000)
+                            await page1.click('aria/navigate_next');
+                            await page1.waitForTimeout(5000);
+                            arrVal -= 400
+                           }
+                           if(idx > 401 && idx < 501){
+                            arrVal -= 400
+                           }
                            let cpy = await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`, {timeout: 5000})
                            await page1.waitForTimeout(1000)
                            //await scrollIntoViewIfNeeded(cpy, 6000);

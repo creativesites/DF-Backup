@@ -1,203 +1,198 @@
 import puppeteer from 'puppeteer';
 import clipboard from 'clipboardy';
+import axios from'axios';
 let arr = [];
 let arrVal = 1;
 let allAgentsL = [
-    
     {
-      name: '00-001-MkiaHambra-3238142465',
+      name: '00-002-CfordNapa-8184929153',
       id: 'h00-000-dfit',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/h00-000-dfit/'
     },
     {
-      name: '00-002-CfordNapa-8184929153',
+      name: '00-003-XhondTaz-8184929306',
       id: 'j0c-002-hondaxttaz--itii',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/j0c-002-hondaxttaz--itii/'
     },
     {
-      name: '00-003-XhondTaz-8184929306',
+      name: '00-004-NhondSerra__-7072421465',
       id: 'h6-0-demo-toyota-drcvsv',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/h6-0-demo-toyota-drcvsv/'
     },
     {
-      name: '00-004-NhondSerra__-7072421465',
-      id: 'autoservice-gsiwft',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/autoservice-gsiwft/'
-    },
-    {
-      name: '00-005-LtoyoBellR-8184939734',
+      name: '00-006-XhondGalp-6174025457',
       id: 'b0v-alexh-fxfa',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/b0v-alexh-fxfa/'
     },
     {
-      name: '00-006-XhondGalp-6174025457',
-      id: 'ea4-9mgs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea4-9mgs/'
-    },
-    
-    {
-      name: '300-AutoPorsBell-8162816544',
-      id: 'xxx-galpinh-oekl',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpinh-oekl/'
-    },
-    {
-      name: '301-AutoMercBell-3602271073',
+      name: '330-SansKia_-818-493-9849',
       id: 'ea2-jdaq',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/ea2-jdaq/'
     },
     {
-      name: '330-SansKia_-818-493-9849',
+      name: '331-SansMits-818-493-9971',
       id: 'ea7-rmfj',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/ea7-rmfj/'
     },
     {
-      name: '331-SansMits-818-493-9971',
+      name: '332-SansNiss-818-493-9961',
       id: 'ea1-gyhm',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/ea1-gyhm/'
     },
     {
-      name: '332-SansNiss-818-493-9961',
-      id: 's001-hansbwmx--9tji',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/s001-hansbwmx--9tji/'
-    },
-    {
-      name: '342-HansBwmBDCREC-8603176527',
-      id: 'xxx-ttxf',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-ttxf/'
-    },
-    {
-      name: '343-HansVolkBDCREC-8549995347',
+      name: '372-EnviToyo-BDC-8592036683',
       id: 'newagent-ohlf',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ohlf/'
     },
     {
-      name: '372-EnviToyo-BDC-8592036683',
+      name: '373-EnviHond-BDCREC-8549995365',
       id: 'newagent-hf9x',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hf9x/'
     },
     {
-      name: '373-EnviHond-BDCREC-8549995365',
+      name: '375-EnviMercEscoX-8549995359',
       id: 'newagent-9j9r',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9j9r/'
     },
     {
-      name: '375-EnviMercEscoX-8549995359',
+      name: '376-EnviMercWCovK-8592129755',
       id: 'newagent-ppfv',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ppfv/'
     },
     {
-      name: '376-EnviMercWCovK-8592129755',
+      name: '377-EnviAudiWCovK-8592129826',
       id: 'newagent-ittx',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ittx/'
     },
     {
-      name: '377-EnviAudiWCovK-8592129826',
+      name: '378-EnviCDJRWCovF-8549995366',
       id: 'u371-envihond--n9je',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/u371-envihond--n9je/'
     },
     {
-      name: '378-EnviCDJRWCovF-8549995366',
+      name: '382-EnviFordOxna-8549995371',
       id: 'ea3-vwwl',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/ea3-vwwl/'
     },
     {
-      name: '380-RegaNiss-BDC-8323088796',
+      name: '382-EnviFordOxna-8549995371',
       id: 'newagent-kwjg',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-kwjg/'
     },
     {
-      name: '382-EnviFordOxna-8549995371',
+      name: '383-EnviJLR_Cerr-6152705405',
       id: 'h383-envijlr-cerr--bwyi',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/h383-envijlr-cerr--bwyi/'
     },
     {
-      name: '383-EnviJLR_Cerr-6152705405',
+      name: '384-EnviToyoNorwC-6143853839',
       id: 'e384-envitoyonorwc--lrve',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/e384-envitoyonorwc--lrve/'
     },
     {
-      name: '384-EnviToyoNorwC-6143853839',
+      name: '385-EnviToyoWCovC-8592129845',
       id: 'newagent-ycbs',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ycbs/'
     },
     {
-      name: '385-EnviToyoWCovC-8592129845',
+      name: '400-GalpFord-818-492-9740',
       id: 'newagent-lyqj',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-lyqj/'
     },
     {
-      name: '400-GalpFord-818-492-9740',
+      name: '401-GalpJagu-854-999-5316',
       id: 'newagent-ahyx',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ahyx/'
     },
     {
-      name: '401-GalpJagu-854-999-5316',
+      name: '404-GalpLinc-516-274-7227',
       id: 'newagent-xppr',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-xppr/'
     },
     {
-      name: '403-GalpLand-854-999-5326',
+      name: '404-GalpLinc-516-274-7227',
       id: 'newagent-mtep',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-mtep/'
     },
     {
-      name: '404-GalpLinc-516-274-7227',
+      name: '405-GalpMazd-854-999-5318',
       id: 'newagent-msec',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-msec/'
     },
     {
-      name: '405-GalpMazd-854-999-5318',
+      name: '406-GalpPors-854-999-5322',
       id: 'newagent-bxcs',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bxcs/'
     },
     {
-      name: '406-GalpPors-854-999-5322',
+      name: '407-GalpVolk-512-518-0344',
       id: 'newagent-jwnv',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-jwnv/'
     },
     {
-      name: '407-GalpVolk-512-518-0344',
+      name: '408-GalpVolv-484-245-4314',
       id: 'newagent-gdbb',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-gdbb/'
     },
     {
-      name: '408-GalpVolv-484-245-4314',
+      name: '420-TuttleClickFord-8603176720',
       id: 'xxx-galpmazd-hnof',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpmazd-hnof/'
     },
     {
-      name: '410-StocHyun-8549995374',
-      id: 'tuttleclickford-exuq',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/tuttleclickford-exuq/'  },
-    {
       name: '420-TuttleClickFord-8603176720',
+      id: 'tuttleclickford-exuq',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/tuttleclickford-exuq/'
+    },
+    {
+      name: '440-KnigCDJRClar-8323063418',
       id: 'newagent-hw9g',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hw9g/'
     },
     {
-      name: '440-KnigCDJRClar-8323063418',
+      name: '500-BostVW_____-8323080838',
       id: 'newagent-9uws',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9uws/'
     },
     {
-      name: '500-BostVW_____-8323080838',
+      name: '510-NortFordCoun-8323080811',
       id: 'newagent-cwer',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-cwer/'
     },
     {
-      name: '510-NortFordCoun-8323080811',
+      name: '540-MorgHyunFtMy-8603170801',
       id: 'newagent-lmgu',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-lmgu/'
     },
     {
-      name: '540-MorgHyunFtMy-8603170801',
+      name: '541-PremKia_Carl-8323080831',
       id: 'newagent-jwmt',
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-jwmt/'
     },
     {
-      name: '545-PremKia_Carl-8323080831',
-      id: 'newagent-bvdd',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bvdd/'
+      name: 'X-001-MkiaHambra-3238142465',
+      id: 'kiahambra3-jiacnd',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/kiahambra3-jiacnd/'
+    },
+    {
+      name: 'X-005-LtoyoBellR-8184939734',
+      id: 'autoservice-gsiwft',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/autoservice-gsiwft/'
+    },
+    {
+      name: 'x301-AutoMercBell-3602271073',
+      id: 'xxx-galpinh-oekl',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpinh-oekl/'
+    },
+    {
+      name: 'x342-HansBwmBDCREC-8603176527',
+      id: 's001-hansbwmx--9tji',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/s001-hansbwmx--9tji/'
+    },
+    {
+      name: 'x343-HansVolkBDCREC-8549995347',
+      id: 'xxx-ttxf',
+      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-ttxf/'
     },
     {
       name: 'x373-EnviHond-BDC1-8592129746',
@@ -205,6 +200,7 @@ let allAgentsL = [
       url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bvdd/'
     }
 ]
+let convArr = []
 import { GoogleSpreadsheet } from'google-spreadsheet';
 //const CREDENTIALS = require('./sheets.json');
 //import * as CREDENTIALS from './sheets.json'
@@ -240,11 +236,11 @@ async function run(){
       height: 600
   })
   await page.waitForTimeout(15000);
-    for (let index = 13; index < 50; index++) {
+    for (let index = 1; index < 50; index++) {
       try {
         await page.waitForTimeout(2000);
                     try {
-                      console.log('selecting select agent button')
+                      //console.log('selecting select agent button')
                     await page.waitForSelector('#agents-dropdown-toggle > span.icon-right.icon-caret', {
                         timeout: 15000
                     });
@@ -252,7 +248,7 @@ async function run(){
                     
                     await page.click('#agents-dropdown-toggle > span.icon-right.icon-caret')
                     } catch (error) {
-                      console.log(error)
+                      //console.log(error)
                       continue
                     }
                     //click settings
@@ -260,7 +256,7 @@ async function run(){
                       timeout: 5000
                   });
                   
-                    console.log('selecting agent to copy from')
+                    //console.log('selecting agent to copy from')
                         await page.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${index}]/a`)
                         let agntToBackup = await page.$x(`/html/body/div[1]/div[2]/div/div/div/aside[1]/div[2]/div/nav/ul/li[2]/ul/li[${index}]/a`)
                         await page.waitForTimeout(1000);
@@ -268,14 +264,14 @@ async function run(){
                         await page.waitForTimeout(10000);
                         //await scrollIntoViewIfNeeded(element, timeout);
                   await page.waitForTimeout(1500);
-                  console.log('selecting settings')
+                  //console.log('selecting settings')
                   await page.click(`#link-settings-agent`);
                   await page.waitForTimeout(8000);
                   //get agent name
                   await page.waitForSelector('#entity-name')
                   let agntN = await page.$('#entity-name')
                   let agntName = await page.evaluate(el => el.value, agntN)
-                  console.log(agntName)
+                  //console.log(agntName)
                   await page.waitForTimeout(1000);
                   await page.waitForTimeout(2000);
                         //click history
@@ -283,7 +279,7 @@ async function run(){
                           timeout: 5000
                       });
                       await page.waitForTimeout(1500);
-                      console.log('selecting history')
+                     // console.log('selecting history')
                       await page.click(`#link-history`);
                       await page.waitForTimeout(15000);
             let cpy = await page.waitForSelector(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div`, {timeout: 5000})
@@ -313,22 +309,35 @@ async function run(){
           let q = ds.fulfillmentText
           q = q.replace(/<[^>]*>?/gm, '');
           q = q.replace(/&nbsp;/g, ' ');
-          console.log(q);
-          console.log(p);
+          //console.log(q);
+          //console.log(p);
+          //get parameters
+          let params = ds.parameters;
+          let paramsString = '';
+        params.map((item) => {
+            let key = Object.keys(item);
+            let val = Object.values(item);
+            // concatenate key and value to string
+            paramsString += `🪁 ${key}: ${val},\n `;
+            })
+            obj.parameters = paramsString;
           let r = ds.outputContexts;
           // get all names from r
           let names = r.map((item) => item.name);
           // names to string
           let namesString = names.join(', ');
-          console.log(namesString);
+          //console.log(namesString);
           obj.action = p;
           obj.fulfillmentText = q;
           obj.outputContexts = namesString;
+          convArr.push(obj);
+          console.log(convArr)
             await sheet.addRow(obj);
             await page.waitForTimeout(2000);
             await page.waitForSelector('aria/CLOSE')
              await page.click('aria/CLOSE')
       } catch (error) {
+        console.log(error)
         console.log(index)
         continue
       }
@@ -336,5 +345,27 @@ async function run(){
     }
     //await browser.close();
 }
-
-run()
+async function pushData(){
+  var data = JSON.stringify(convArr);
+  console.log(convArr.length)
+  var config = {
+      method: 'post',
+      url: 'https://script.google.com/macros/s/AKfycbw9OYAd3AQd4IBPBjpWovKVbUJwUrnnUSmAZlNNAGwNbaCgMKODo9iFAN_AADMAUZvh/exec?gid=377807407',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      data: data
+  };
+  
+  axios(config)
+  .then(function (response) {
+  console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+  console.log(error);
+  });
+}
+run().then(() => {
+  pushData();
+  console.log('done')
+})

@@ -25,7 +25,7 @@ let done = false;
 let tEnt = false;
 let tInt = false;
 let agent = '00-000-DEV1-FY-8323176701';
-let ints1 = [7];
+let ints1 = [6];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
@@ -726,7 +726,7 @@ async function run(){
                             try {
                                 
                                   console.log('selector found')
-                                  
+                                   
                                     await page1.waitForXPath(`/html/body/div[3]/md-select-menu/md-content/md-option[${el5}]`)
                                     let agntToUpdate = await page1.$x(`/html/body/div[3]/md-select-menu/md-content/md-option[${el5}]`)
                                     await page1.waitForTimeout(1000);

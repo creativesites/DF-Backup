@@ -29,7 +29,7 @@ let ints1 = [7];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
-let ents = [25, 35, 41]
+let ents = [25, 41, 43]
 let changeAgents = [
   '410-StocHyun-8549995374 [en]',
   '371-EnviHondV2-854-999-5365 [en]',
@@ -186,11 +186,28 @@ async function run(){
                 await page1.waitForTimeout(2000);
                 }
                 if(i === 1){
-                  e4 = 15
-                  await page1.waitForTimeout(1000);
+                  e4 = 1
+                  try {
+                    let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
+                    await page1.waitForTimeout(1500);
+                    await nxt[0].click()
+                   } catch (error) {
+                    console.log(error)
+                    
+                   }
+                   await page1.waitForTimeout(5000)
+                   try {
+                    let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
+                    await page1.waitForTimeout(1500);
+                    await nxt[0].click()
+                   } catch (error) {
+                    console.log(error)
+                    
+                   }
+                  await page1.waitForTimeout(6000);
                   await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
                       timeout: 5000
-                  });
+                  }); 
                   await page1.waitForTimeout(1000);
                   let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
                       timeout: 5000
@@ -200,16 +217,16 @@ async function run(){
                   await page1.waitForTimeout(2000);
                 }
                 if(i===2){
-                  e4 = 1
-                  try {
-                    let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
-                    await page1.waitForTimeout(1500);
-                    await nxt[0].click()
-                   } catch (error) {
-                    console.log(error)
+                  e4 = 3
+                  // try {
+                  //   let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
+                  //   await page1.waitForTimeout(1500);
+                  //   await nxt[0].click()
+                  //  } catch (error) {
+                  //   console.log(error)
                     
-                   } 
-                  await page1.waitForTimeout(5000);
+                  //  } 
+                  await page1.waitForTimeout(1000);
                   await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
                       timeout: 5000
                   });
@@ -272,11 +289,28 @@ async function run(){
               //select the agent
               //first level loop
               //  /html/body/div[3]/md-select-menu/md-content/md-option[2]
+              //  /html/body/div[5]/md-select-menu/md-content/md-option[2]
+              // 
               try {
-                await page1.waitForXPath(`/html/body/div[3]/md-select-menu/md-content/md-option[${index}]`)
-                let agg = await page1.$x(`/html/body/div[3]/md-select-menu/md-content/md-option[${index}]`)
-                await page1.waitForTimeout(2000);
-                await agg[0].click()
+                try {
+                  await page1.waitForXPath(`/html/body/div[5]/md-select-menu/md-content/md-option[${index}]`)
+                  let agg = await page1.$x(`/html/body/div[5]/md-select-menu/md-content/md-option[${index}]`)
+                  await page1.waitForTimeout(2000);
+                  await agg[0].click()
+                  
+                } catch (error) {
+                  console.log(`${index} not found`)
+                  try {
+                    let xc = 1538 + index
+                    await page1.waitForSelector(`#select_option_${xc} > div.md-text.ng-binding`);
+                    await page1.waitForTimeout(1000);
+                    await page1.click(`#select_option_${xc} > div.md-text.ng-binding`)
+                  } catch (error) {
+                    console.log(`${index} not found AGAIN`)
+                    continue
+                  }
+                  // /html/body/div[5]/md-select-menu/md-content/md-option[1]
+                }
                 
     
                   await page1.waitForSelector('aria/START', {
