@@ -181,7 +181,7 @@ async function run(){
                 let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
                     timeout: 5000
                 });
-                console.log('clicking ONE')
+                //console.log('clicking ONE')
                 await ell1[0].click();
                 await page1.waitForTimeout(2000);
                 }
@@ -212,7 +212,7 @@ async function run(){
                   let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
                       timeout: 5000
                   });
-                  console.log('clicking TWO')
+                  //console.log('clicking TWO')
                   await ell1[0].click();
                   await page1.waitForTimeout(2000);
                 }
@@ -234,7 +234,7 @@ async function run(){
                   let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
                       timeout: 5000
                   });
-                  console.log('clicking THREE')
+                  //console.log('clicking THREE')
                   await ell1[0].click();
                   await page1.waitForTimeout(2000);
                 }
@@ -265,7 +265,7 @@ async function run(){
                   timeout: 5000
               });
               await page1.waitForTimeout(1000);
-              console.log('selecting copy button')
+              //console.log('selecting copy button')
               await page1.click('aria/COPY')
       
               //select intents and entities
@@ -273,7 +273,7 @@ async function run(){
               await page1.waitForTimeout(1000);
               let ell2 = await page1.$x(`/html/body/div[1]/div[5]/md-dialog/batch-popup/md-dialog-content/div/md-input-container[2]/md-checkbox`);
               await ell2[0].click();
-              console.log('selecting overwrite entities')
+              //console.log('selecting overwrite entities')
               await page1.waitForTimeout(1000);
       
       
@@ -282,7 +282,7 @@ async function run(){
                   timeout: 5000
               })
               
-              console.log('selecting selct agent')
+              //console.log('selecting selct agent')
               await page1.waitForTimeout(1000);
               await page1.click('aria/Destination agent')
       
@@ -290,24 +290,35 @@ async function run(){
               //first level loop
               //  /html/body/div[3]/md-select-menu/md-content/md-option[2]
               //  /html/body/div[5]/md-select-menu/md-content/md-option[2]
-              // 
+              // #select_option_2006 > div.md-text.ng-binding
+              // /html/body/div[6]/md-select-menu/md-content/md-option[2]/div[1]
               try {
                 try {
-                  await page1.waitForXPath(`/html/body/div[5]/md-select-menu/md-content/md-option[${index}]`)
-                  let agg = await page1.$x(`/html/body/div[5]/md-select-menu/md-content/md-option[${index}]`)
+                  await page1.waitForXPath(`/html/body/div[6]/md-select-menu/md-content/md-option[${index}]`)
+                  let agg = await page1.$x(`/html/body/div[6]/md-select-menu/md-content/md-option[${index}]`)
                   await page1.waitForTimeout(2000);
                   await agg[0].click()
                   
                 } catch (error) {
-                  console.log(`${index} not found`)
+                  //console.log(`${index} not found`)
                   try {
-                    let xc = 1538 + index
-                    await page1.waitForSelector(`#select_option_${xc} > div.md-text.ng-binding`);
-                    await page1.waitForTimeout(1000);
-                    await page1.click(`#select_option_${xc} > div.md-text.ng-binding`)
+                    await page1.waitForXPath(`/html/body/div[5]/md-select-menu/md-content/md-option[${index}]`)
+                  let agg1 = await page1.$x(`/html/body/div[5]/md-select-menu/md-content/md-option[${index}]`)
+                  await page1.waitForTimeout(2000);
+                  await agg1[0].click()
                   } catch (error) {
-                    console.log(`${index} not found AGAIN`)
-                    continue
+                    //console.log(`${index} not found AGAIN`)
+                    try {
+                      await page1.waitForXPath(`/html/body/div[4]/md-select-menu/md-content/md-option[${index}]`)
+                  let agg2 = await page1.$x(`/html/body/div[4]/md-select-menu/md-content/md-option[${index}]`)
+                  await page1.waitForTimeout(2000);
+                  await agg2[0].click()
+                    } catch (error) {
+                      console.log(index)
+                      console.log('moving on')
+                      continue
+                    }
+                    
                   }
                   // /html/body/div[5]/md-select-menu/md-content/md-option[1]
                 }
