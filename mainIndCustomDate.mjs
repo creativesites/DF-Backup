@@ -1,3 +1,4 @@
+// 540-MorgHyunFtMy-8603170801
 import puppeteer from 'puppeteer';
 import fs from'fs';
 import cheerio from'cheerio';
@@ -19,256 +20,15 @@ import ncp from"copy-paste";
 const file = './data.json'
 //let changeAgents1 = ['440-KnigCDJRClar-8323063418'];
 //let changeAgents1 = ['410-StocHyun-8549995374', '371-EnviHondV2-854-999-5365','300-AutoPorX-816-281-6544'];
-let changeAgents1 = [
-    '410-StocHyun-8549995374', 
-    '371-EnviHondV2-854-999-5365',
-    '300-AutoPorX-816-281-6544', 
-    '00-005-LtoyoBellR-8184939734', 
-    '00-002-CfordNapa-8184929153', 
-    '00-003-XhondTaz-8184929306', 
-    '330-SansKia_-818-493-9849', 
-    '331-SansMits-818-493-9971', 
-    '332-SansNiss-818-493-9961',  
-    '00-001-MkiaHambra-3238142465', 
-    '380-RegaNiss-BDC-8323088796', 
-    '00-004-NhondSerra__-7072421465', 
-    '00-006-XhondGalp-6174025457', 
-    '300-AutoPorsBell-8162816544',
-    '440-KnigCDJRClar-8323063418', 
-    '301-AutoMercBell-3602271073', 
-    '342-HansBwm-B+R-8603176527', 
-    '343-HansVolk-B+R-8549995347', 
-    '372-EnviToyo-BDC-8592036683', 
-    '373-EnviHond-BDC-8592129632', 
-    '373-EnviHondBDC+REC-8549995365', 
-    '375-EnviMercEscoX-8549995359', 
-    '376-EnviMercWCovK-8592129755', 
-    '377-EnviAudiWCovK-8592129826', 
-    '378-EnviCDJRWCovF-8549995366', 
-    '383-EnviJLR_Cerr-6152705405', 
-    '382-EnviFordOxna-8549995371', 
-    '384-EnviToyoNorwC-6143853839', 
-    '385-EnviToyoWCovC-8592129845', 
-    '420-TuttleClickFord-860-317-6720', 
-    '400-GalpFord-818-492-9740', 
-    'x341-343-HansVolk-B+R-8549995347',
-    'X340-342-HansBwm-B+R-8603176527',
-    '1440-KnigCDJRClar-8323063418',
-    '401-GalpJagu-854-999-5316',
-    '403-GalpLand-854-999-5326',
-    '404-GalpLinc-516-274-7227',
-    '405-GalpMazd-854-999-5318',
-    '406-GalpPors-854-999-5322',
-    '407-GalpVolk-512-518-0344',
-    '408-GalpVolv-484-245-4314',
-    '1500-BostVW_____-8323080838'
-];
-let allAgentsL =  [
-  
-    {
-      name: '00-002-CfordNapa-8184929153',
-      id: 'j0c-002-hondaxttaz--itii',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/j0c-002-hondaxttaz--itii/'
-    },
-    {
-      name: '00-003-XhondTaz-8184929306',
-      id: 'h6-0-demo-toyota-drcvsv',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/h6-0-demo-toyota-drcvsv/'
-    },
-    {
-      name: '00-004-NhondSerra__-7072421465',
-      id: 'b0v-alexh-fxfa',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/b0v-alexh-fxfa/'
-    },
-    {
-      name: '00-006-XhondGalp-6174025457',
-      id: 'ea5-mtpc',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea5-mtpc/'
-    },
-    
-    {
-      name: '300-AutoPorsBell-8162816544',
-      id: 'ea2-jdaq',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea2-jdaq/'
-    },
-    {
-      name: '330-SansKia_-818-493-9849',
-      id: 'ea7-rmfj',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea7-rmfj/'
-    },
-    {
-      name: '331-SansMits-818-493-9971',
-      id: 'ea1-gyhm',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea1-gyhm/'
-    },
-    {
-      name: '332-SansNiss-818-493-9961',
-      id: 'newagent-ohlf',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ohlf/'
-    },
-    {
-      name: '372-EnviToyo-BDC-8592036683',
-      id: 'newagent-hf9x',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hf9x/'
-    },
-    {
-      name: '373-EnviHond-BDCREC-8549995365',
-      id: 'newagent-9j9r',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9j9r/'
-    },
-    {
-      name: '375-EnviMercEscoX-8549995359',
-      id: 'newagent-ppfv',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ppfv/'
-    },
-    {
-      name: '376-EnviMercWCovK-8592129755',
-      id: 'newagent-ittx',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ittx/'
-    },
-    {
-      name: '377-EnviAudiWCovK-8592129826',
-      id: 'u371-envihond--n9je',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/u371-envihond--n9je/'
-    },
-    {
-      name: '378-EnviCDJRWCovF-8549995366',
-      id: 'ea3-vwwl',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea3-vwwl/'
-    },
-    {
-      name: '382-EnviFordOxna-8549995371',
-      id: 'newagent-kwjg',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-kwjg/'
-    },
-    {
-      name: '382-EnviFordOxna-8549995371',
-      id: 'h383-envijlr-cerr--bwyi',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/h383-envijlr-cerr--bwyi/'
-    },
-    {
-      name: '383-EnviJLR_Cerr-6152705405',
-      id: 'e384-envitoyonorwc--lrve',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/e384-envitoyonorwc--lrve/'
-    },
-    {
-      name: '384-EnviToyoNorwC-6143853839',
-      id: 'newagent-ycbs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ycbs/'
-    },
-    {
-      name: '385-EnviToyoWCovC-8592129845',
-      id: 'newagent-lyqj',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-lyqj/'
-    },
-    {
-      name: '400-GalpFord-818-492-9740',
-      id: 'newagent-ahyx',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ahyx/'
-    },
-    {
-      name: '401-GalpJagu-854-999-5316',
-      id: 'newagent-xppr',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-xppr/'
-    },
-    {
-      name: '404-GalpLinc-516-274-7227',
-      id: 'newagent-mtep',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-mtep/'
-    },
-    {
-      name: '404-GalpLinc-516-274-7227',
-      id: 'newagent-msec',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-msec/'
-    },
-    {
-      name: '405-GalpMazd-854-999-5318',
-      id: 'newagent-bxcs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bxcs/'
-    },
-    {
-      name: '406-GalpPors-854-999-5322',
-      id: 'newagent-jwnv',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-jwnv/'
-    },
-    {
-      name: '407-GalpVolk-512-518-0344',
-      id: 'newagent-gdbb',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-gdbb/'
-    },
-    {
-      name: '408-GalpVolv-484-245-4314',
-      id: 'xxx-galpmazd-hnof',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpmazd-hnof/'
-    },
-    {
-      name: '420-TuttleClickFord-8603176720',
-      id: 'tuttleclickford-exuq',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/tuttleclickford-exuq/'  },
-    {
-      name: '420-TuttleClickFord-8603176720',
-      id: 'newagent-hw9g',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hw9g/'
-    },
-    {
-      name: '440-KnigCDJRClar-8323063418',
-      id: 'newagent-9uws',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9uws/'
-    },
-    {
-      name: '500-BostVW_____-8323080838',
-      id: 'newagent-cwer',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-cwer/'
-    },
-    {
-      name: '510-NortFordCoun-8323080811',
-      id: 'newagent-lmgu',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-lmgu/'
-    },
-    {
-      name: '540-MorgHyunFtMy-8603170801',
-      id: 'newagent-jwmt',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-jwmt/'
-    },
-    {
-      name: '541-PremKia_Carl-8323080831',
-      id: 'kiahambra3-jiacnd',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/kiahambra3-jiacnd/'
-    },
-    {
-      name: 'X-001-MkiaHambra-3238142465',
-      id: 'autoservice-gsiwft',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/autoservice-gsiwft/'
-    },
-    {
-      name: 'X-005-LtoyoBellR-8184939734',
-      id: 'xxx-galpinh-oekl',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpinh-oekl/'
-    },
-    {
-      name: 'x301-AutoMercBell-3602271073',
-      id: 's001-hansbwmx--9tji',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/s001-hansbwmx--9tji/'
-    },
-    {
-      name: 'x342-HansBwmBDCREC-8603176527',
-      id: 'xxx-ttxf',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-ttxf/'
-    },
-    {
-      name: 'x343-HansVolkBDCREC-8549995347',
-      id: 'newagent-bvdd',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bvdd/'
-    },
-    {
-      name: 'x373-EnviHond-BDC1-8592129746',
-      id: 'newagent-bvdd',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bvdd/'
-    }
-]
+let changeAgents1 = []
+let allAgentsL =  [{
+    name: '540-MorgHyunFtMy-8603170801',
+    id: 'newagent-jwmt',
+    url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-jwmt/'
+  }]
 
-let startDate = '2022-11-22'
-let endDate = '2022-11-22'
+let startDate = '2022-11-14'
+let endDate = '2022-11-14'
 let startDate1 = moment(startDate).format('dddd MMMM D YYYY');
 console.log(startDate1)
 let endDate1 = moment(endDate).format('dddd MMMM D YYYY');
@@ -305,290 +65,8 @@ import Log from './Log.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const zipDirPath = resolve(__dirname, 'backup');
-let priorityOneAgents = [
-    {
-        name: '1500-BostVW_____-8323080838',
-        id: 'newagent-9uws',
-        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9uws/'
-    },
-    {
-        name: '1440-KnigCDJRClar-8323063418',
-        id: 'newagent-hw9g',
-        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hw9g/'
-    },
-    {
-        name: '420-TuttleClickFord-860-317-6720',
-        id: 'tuttleclickford-exuq',
-        url: 'https://dialogflow.cloud.google.com/#/editAgent/tuttleclickford-exuq/'
-    },
-    {
-        name: '375-EnviMercEscoX-8549995359',
-        id: 'newagent-ppfv',
-        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ppfv/'
-    },
-    {
-        name: '376-EnviMercWCovK-8592129755',
-        id: 'newagent-ittx',
-        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ittx/'
-    },
-    {
-        name: '380-RegaNiss-BDC-8323088796',
-        id: 'h6-0-demo-toyota-drcvsv',
-        url: 'https://dialogflow.cloud.google.com/#/editAgent/h6-0-demo-toyota-drcvsv/'
-    },
-    {
-        name: '343-HansVolkBDCREC-8549995347',
-        id: 'xxx-ttxf',
-        url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-ttxf/'
-    },
-    {
-        name: '330-SansKia_-818-493-9849',
-        id: 'ea7-rmfj',
-        url: 'https://dialogflow.cloud.google.com/#/editAgent/ea7-rmfj/'
-    },
-    {
-        name: '510-NortFordCoun-8323080811',
-        id: 'newagent-cwer',
-        url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-cwer/'
-    }
-]
-let allAgents = [
-   
-    {
-      name: '00-001-MkiaHambra-3238142465',
-      id: 'h00-000-dfit',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/h00-000-dfit/'
-    },
-    {
-      name: '00-002-CfordNapa-8184929153',
-      id: 'j0c-002-hondaxttaz--itii',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/j0c-002-hondaxttaz--itii/'  },
-    {
-      name: '00-003-XhondTaz-8184929306',
-      id: 'h6-0-demo-toyota-drcvsv',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/h6-0-demo-toyota-drcvsv/'
-    },
-    {
-      name: '00-004-NhondSerra__-7072421465',
-      id: 'autoservice-gsiwft',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/autoservice-gsiwft/'
-    },
-    {
-      name: '00-005-LtoyoBellR-8184939734',
-      id: 'b0v-alexh-fxfa',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/b0v-alexh-fxfa/'
-    },
-    {
-      name: '00-006-XhondGalp-6174025457',
-      id: 'a000-dev-vnkj',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/a000-dev-vnkj/'
-    },
-    
-    {
-      name: '1440-KnigCDJRClar-8323063418',
-      id: 'newagent-9uws',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9uws/'
-    },
-    {
-      name: '1500-BostVW_____-8323080838',
-      id: 'newagent-cwer',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-cwer/'
-    },
-    {
-      name: '1510-NortFordCoun-8323080811',
-      id: 'u020-autoporx--bnvs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/u020-autoporx--bnvs/'
-    },
-    {
-      name: '300-AutoPorsBell-8162816544',
-      id: 'xxx-galpinh-oekl',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpinh-oekl/'
-    },
-    {
-      name: '301-AutoMercBell-3602271073',
-      id: 'ea2-jdaq',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea2-jdaq/'
-    },
-    {
-      name: '330-SansKia_-818-493-9849',
-      id: 'ea7-rmfj',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea7-rmfj/'
-    },
-    {
-      name: '331-SansMits-818-493-9971',
-      id: 'ea1-gyhm',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea1-gyhm/'
-    },
-    {
-      name: '332-SansNiss-818-493-9961',
-      id: 's001-hansbwmx--9tji',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/s001-hansbwmx--9tji/'
-    },
-    {
-      name: '342-HansBwmBDCREC-8603176527',
-      id: 'xxx-ttxf',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-ttxf/'
-    },
-    {
-      name: '343-HansVolkBDCREC-8549995347',
-      id: 'newagent-ohlf',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ohlf/'
-    },
-    {
-      name: '372-EnviToyo-BDC-8592036683',
-      id: 'newagent-hf9x',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-hf9x/'
-    },
-    {
-      name: '373-EnviHond-BDCREC-8549995365',
-      id: 'newagent-9j9r',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-9j9r/'
-    },
-    {
-      name: '375-EnviMercEscoX-8549995359',
-      id: 'newagent-ppfv',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ppfv/'
-    },
-    {
-      name: '376-EnviMercWCovK-8592129755',
-      id: 'newagent-ittx',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ittx/'
-    },
-    {
-      name: '377-EnviAudiWCovK-8592129826',
-      id: 'u371-envihond--n9je',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/u371-envihond--n9je/'
-    },
-    {
-      name: '378-EnviCDJRWCovF-8549995366',
-      id: 'ea3-vwwl',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea3-vwwl/'
-    },
-    {
-      name: '380-RegaNiss-BDC-8323088796',
-      id: 'newagent-kwjg',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-kwjg/'
-    },
-    {
-      name: '382-EnviFordOxna-8549995371',
-      id: 'h383-envijlr-cerr--bwyi',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/h383-envijlr-cerr--bwyi/'
-    },
-    {
-      name: '383-EnviJLR_Cerr-6152705405',
-      id: 'e384-envitoyonorwc--lrve',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/e384-envitoyonorwc--lrve/'  },
-    {
-      name: '384-EnviToyoNorwC-6143853839',
-      id: 'newagent-ycbs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ycbs/'
-    },
-    {
-      name: '385-EnviToyoWCovC-8592129845',
-      id: 'newagent-lyqj',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-lyqj/'
-    },
-    {
-      name: '400-GalpFord-818-492-9740',
-      id: 'newagent-ahyx',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-ahyx/'
-    },
-    {
-      name: '401-GalpJagu-854-999-5316',
-      id: 'newagent-xppr',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-xppr/'
-    },
-    {
-      name: '403-GalpLand-854-999-5326',
-      id: 'newagent-mtep',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-mtep/'
-    },
-    {
-      name: '404-GalpLinc-516-274-7227',
-      id: 'newagent-msec',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-msec/'
-    },
-    {
-      name: '405-GalpMazd-854-999-5318',
-      id: 'newagent-bxcs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bxcs/'
-    },
-    {
-      name: '406-GalpPors-854-999-5322',
-      id: 'newagent-jwnv',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-jwnv/'
-    },
-    {
-      name: '407-GalpVolk-512-518-0344',
-      id: 'newagent-gdbb',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-gdbb/'
-    },
-    {
-      name: '408-GalpVolv-484-245-4314',
-      id: 'xxx-galpmazd-hnof',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/xxx-galpmazd-hnof/'
-    },
-    {
-      name: '410-StocHyun-8549995374',
-      id: 'tuttleclickford-exuq',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/tuttleclickford-exuq/'
-    },
-    {
-      name: '420-TuttleClickFord-8603176720',
-      id: 'newagent-bvdd',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/newagent-bvdd/'
-    },
-    {
-      name: 'x373-EnviHond-BDC1-8592129746',
-      id: 'ea4-9mgs',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea4-9mgs/'
-    },
-    {
-      name: 'xxx342-HansBwmBDC-8323231735',
-      id: 'ea5-mtpc',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/ea5-mtpc/'
-    },
-    {
-      name: "2100-VistNiss-9712135763",
-      id: "new-fjqt",
-      url: "https://dialogflow.cloud.google.com/#/editAgent/new-fjqt/"
-    },
-    {
-      name: '2101-VistToyo-9712135624',
-      id: 'new-kpmn',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/new-kpmn/'
-    },
-    {
-      name: '2102-OremMercElCa-9712138190',
-      id: 'agent1-pweu',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/agent1-pweu/'
-    },
-    {
-      name: '700-AutoAudiSpok-9712135264',
-      id: 'new-btdx',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/new-btdx/'
-    },
-    {
-      name: '701-AutoVW__Spok-9712135263',
-      id: 'v701-autovw-spok--miia',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/v701-autovw-spok--miia/'
-    },
-    {
-      name: '702-AutoSubaSpok-9712135627',
-      id: 'n702-autosubaspok--hhbc',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/n702-autosubaspok--hhbc/'
-    },
-    {
-      name: '703-AutoAudiBell-9712135622',
-      id: 'l703-autoaudibell--fakj',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/l703-autoaudibell--fakj/'
-    },
-    {
-      name: '704-AutoBMW_Bell-9712135449',
-      id: 'i704-autobmw-bell--rnna',
-      url: 'https://dialogflow.cloud.google.com/#/editAgent/i704-autobmw-bell--rnna/'
-    }
-]
+
+
 import { GoogleSpreadsheet } from'google-spreadsheet';
 //const CREDENTIALS = require('./sheets.json');
 //import * as CREDENTIALS from './sheets.json'
@@ -611,7 +89,9 @@ const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
 let tests = []
 
 async function run() {
+    //puppeteerExtra.use(stealthPlugin());
     const browser = await puppeteer.launch({
+        //executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         headless: false,
         defaultViewport: null,
         args: [
@@ -670,7 +150,7 @@ async function run() {
               
                   // load the documents info
                   await doc.loadInfo();
-                  const sheet = doc.sheetsByTitle['History'];
+                  const sheet = doc.sheetsByTitle['540-MorgHyunFtMy-8603170801'];
                   console.log(sheet.title);
                   convArr.push(oj)
                     let agent = el
@@ -739,29 +219,6 @@ async function run() {
                           await page1.waitForTimeout(10000);
                           } catch (error) {
                             console.log(el)
-                            await page1.waitForTimeout(10000);
-                             // select date range
-                          await page1.waitForSelector('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(1) > div > button > div')
-                          await page1.waitForTimeout(1000);
-                          await page1.click('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(1) > div > button > div');
-                          await page1.waitForTimeout(1000);
-                          // select start date
-                          await page1.waitForSelector(`aria/${startDate1}`)
-                          await page1.waitForTimeout(1000);
-                          await page1.click(`aria/${startDate1}`);
-                          await page1.waitForTimeout(1000);
-                          // select second date range
-                          await page1.waitForSelector('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(3) > div > button');
-                          await page1.waitForTimeout(1000);
-                          await page1.click('#main > div > div.workplace.ng-scope > div > history > div > div.top-panel.ng-scope > div > div.filter-panel.layout-row > div.layout-align-end-center.layout-row.flex-60 > md-datepicker:nth-child(3) > div > button');
-                          await page1.waitForTimeout(1000);
-                          // select end date
-                          await page1.waitForSelector(`aria/${endDate1}`)
-                          await page1.waitForTimeout(1000);
-                          await page1.click(`aria/${endDate1}`);
-                          await page1.waitForTimeout(1000);
-                          // wait for page to load
-                          await page1.waitForTimeout(10000);
                           }
                         let iid = 500
                         try{
@@ -774,83 +231,51 @@ async function run() {
                             await page1.waitForTimeout(1000);
                             await page1.click('aria/100');
                             await page1.waitForTimeout(15000);
-                        }catch(e){
-                          await page1.waitForTimeout(10000);
-                          let xn = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/history/div/div[4]/div[1]/md-select/md-select-value/span[2]', {timeout: 10000});
-                            await page1.waitForTimeout(4500);
-                            await xn[0].click()
-                            await page1.waitForTimeout(2500);
-                            await page1.waitForTimeout(1000);
-                            await page1.waitForSelector('aria/100')
-                            await page1.waitForTimeout(1000);
-                            await page1.click('aria/100');
-                            await page1.waitForTimeout(15000);
-                        }
-                        let errIdx = 1        
+                        }catch(e){}
+                                
                         let convRow = []
-                        let numberOfpages = 1
-                        async function goToNextPage(){
-                          for (let idxx = 0; idxx < 6; idxx++) {
-                            try{
-                              await page1.waitForTimeout(2000)
-                              await page1.waitForSelector('aria/navigate_next')
-                              await page1.waitForTimeout(1000)
-                              await page1.click('aria/navigate_next');
-                              await page1.waitForTimeout(15000);
-                              numberOfpages += 1
-                              iid = 100 * numberOfpages
-                              console.log('page number', numberOfpages)
-                            }catch(er){
-                              try {
-                                await page1.waitForTimeout(2000)
-                                await page1.waitForSelector('aria/navigate_next')
-                                await page1.waitForTimeout(1000)
-                                await page1.click('aria/navigate_next');
-                                await page1.waitForTimeout(15000);
-                                numberOfpages += 1
-                                console.log('page number2', numberOfpages)
-                              } catch (error) {
-                                try {
-                                  await page1.waitForTimeout(2000)
-                                  await page1.waitForSelector('#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(1)')
-                                  let numEl = await page1.$$('#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div')
-                                  let numConv = numEl.length
-                                  console.log(numConv)
-                                } catch (error) {
-                                  console.log('no more pages')
-                                }
-                                break
-                              }
-                            }
-                            
-                          }
-                          
-                        }
-                        await goToNextPage()
-                        async function getConvNumber(){
-                            
-                        }
                         async function getC(){
                             console.log('in conv')
                             await page1.waitForTimeout(5000);
+                            await page1.waitForTimeout(2000)
+                            await page1.waitForSelector('aria/navigate_next')
+                            await page1.waitForTimeout(1000)
+                            await page1.click('aria/navigate_next');
+                            await page1.waitForTimeout(15000)
+                            await page1.waitForTimeout(2000)
+                            await page1.waitForSelector('aria/navigate_next')
+                            await page1.waitForTimeout(1000)
+                            await page1.click('aria/navigate_next');
+                            await page1.waitForTimeout(15000)
+                            await page1.waitForTimeout(2000)
+                            await page1.waitForSelector('aria/navigate_next')
+                            await page1.waitForTimeout(1000)
+                            await page1.click('aria/navigate_next');
+                            await page1.waitForTimeout(15000)
+                            await page1.waitForTimeout(2000)
+                            await page1.waitForSelector('aria/navigate_next')
+                            await page1.waitForTimeout(1000)
+                            await page1.click('aria/navigate_next');
+                            await page1.waitForTimeout(20000)
                           for (let idx = 1; idx < iid; idx++) {
-                            
-                            try{
                             await page1.waitForTimeout(5000);
                               let arrVal = idx;
                               let convObj = {}
-                             
+                              let srt ={
+                                USER: "New Conversation",
+                                CHATBOT: agent
+                            }
+                           let currentDate = await page1.$(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div > div.layout-align-start-center.layout-row.flex-15 > span`);
                            let txt 
                            
                            try {
-                            let currentDate = await page1.$(`#main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(${arrVal}) > div > div.layout-align-start-center.layout-row.flex-15 > span`);
-                           
                             txt = await page1.evaluate(element => element.textContent, currentDate);
                             console.log(txt)
                            } catch (error) {
                             
                            }
                            
+                           convArr.push(srt)
                            let userSayArr = []
                            let agentSayArr = []
                            let convTime = []
@@ -862,14 +287,14 @@ async function run() {
                            let bboking = false;
                            let numOfIterations = 0
                            let iterationsExceeded = false
-                           //  #main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(2) > div
-                            // #main > div > div.workplace.ng-scope > div > history > div > div.content-section.ng-scope > conversations > div > div:nth-child(38) > div
+                           
+                            
                            if(idx === 101){
                             await page1.waitForTimeout(2000)
                             await page1.waitForSelector('aria/navigate_next')
                             await page1.waitForTimeout(1000)
                             await page1.click('aria/navigate_next');
-                            await page1.waitForTimeout(15000);
+                            await page1.waitForTimeout(25000)
                             arrVal -= 100
                            }
                            if(idx > 101 && idx < 201){
@@ -880,7 +305,7 @@ async function run() {
                             await page1.waitForSelector('aria/navigate_next')
                             await page1.waitForTimeout(1000)
                             await page1.click('aria/navigate_next');
-                            await page1.waitForTimeout(15000);
+                            await page1.waitForTimeout(15000)
                             arrVal -= 200
                            }
                            if(idx > 201 && idx < 301){
@@ -891,7 +316,7 @@ async function run() {
                             await page1.waitForSelector('aria/navigate_next')
                             await page1.waitForTimeout(1000)
                             await page1.click('aria/navigate_next');
-                            await page1.waitForTimeout(15000);
+                            await page1.waitForTimeout(15000)
                             arrVal -= 300
                            }
                            if(idx > 301 && idx < 401){
@@ -903,7 +328,7 @@ async function run() {
                             await page1.waitForSelector('aria/navigate_next')
                             await page1.waitForTimeout(1000)
                             await page1.click('aria/navigate_next');
-                            await page1.waitForTimeout(15000);
+                            await page1.waitForTimeout(15000)
                             arrVal -= 400
                            }
                            if(idx > 401 && idx < 501){
@@ -1089,21 +514,13 @@ async function run() {
                               } catch (error) {
                                 
                               }
-                            }catch(err){
-                                console.log(err)
-                                errIdx = idx
-                                await page1.waitForTimeout(10000);
-                                continue
-                            }
+                              
                           }
-
                       }
                       try {
                         await getC()
                         await sheet.addRows(convArr1)
                       } catch (error) {
-                        iid = errIdx
-                        await getC()
                         console.log(error)
                         await sheet.addRows(convArr1)
                       }

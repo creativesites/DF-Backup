@@ -1,0 +1,50 @@
+[
+  {
+    "label": "Pacific/Honolulu (GMT-10:00)",
+    "tzCode": "Pacific/Honolulu",
+    "name": "(GMT-10:00) Honolulu, East Honolulu, Pearl City, Hilo, Kailua",
+    "utc": "-10:00"
+  },
+  {
+    "label": "America/Anchorage (GMT-09:00)",
+    "tzCode": "America/Anchorage",
+    "name": "(GMT-09:00) Anchorage, Fairbanks, Eagle River, Badger, Knik-Fairview",
+    "utc": "-09:00"
+  },
+  {
+    "label": "America/Los_Angeles (GMT-08:00)",
+    "tzCode": "America/Los_Angeles",
+    "name": "(GMT-08:00) Los Angeles, San Diego, San Jose, San Francisco, Seattle",
+    "utc": "-08:00"
+  },
+  {
+    "label": "America/Denver (GMT-07:00)",
+    "tzCode": "America/Denver",
+    "name": "(GMT-07:00) Denver, El Paso, Albuquerque, Colorado Springs, Aurora",
+    "utc": "-07:00"
+  },
+  {
+    "label": "America/Phoenix (GMT-07:00)",
+    "tzCode": "America/Phoenix",
+    "name": "(GMT-07:00) Phoenix, Tucson, Mesa, Chandler, Gilbert",
+    "utc": "-07:00"
+  },
+  {
+    "label": "America/Chicago (GMT-06:00)",
+    "tzCode": "America/Chicago",
+    "name": "(GMT-06:00) Chicago, Houston, San Antonio, Dallas, Austin",
+    "utc": "-06:00"
+  },
+  {
+    "label": "America/New_York (GMT-05:00)",
+    "tzCode": "America/New_York",
+    "name": "(GMT-05:00) New York City, Brooklyn, Queens, Philadelphia, Manhattan",
+    "utc": "-05:00"
+  },
+  {
+    "label": "America/Puerto_Rico (GMT-04:00)",
+    "tzCode": "America/Puerto_Rico",
+    "name": "(GMT-04:00) San Juan, Bayamón, Carolina, Ponce, Caguas",
+    "utc": "-04:00"
+  }
+]

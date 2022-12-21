@@ -20,14 +20,14 @@ const downloadPath = path.resolve('./backup');
 const {
     GoogleSpreadsheet
 } = require('google-spreadsheet');
-const CREDENTIALS = require('./sheets.json');
+const CREDENTIALS = require('./sheets2.json');
 const RESPONSES_SHEET_ID = '1gza3a05wWV4bt7c9pMyJsm43hpbCpPx84Uctym2zjOg';
 const doc = new GoogleSpreadsheet(RESPONSES_SHEET_ID);
 const {Storage} = require('@google-cloud/storage');
 const storage = new Storage({
-    keyFilename: './sheets.json',
+    keyFilename: './sheets2.json',
   });
-  let bucketName = 'df-update-storage'
+let bucketName = 'df-update-storage'
   //let bucketName =  moment().format("YYMMDDHH:mm")
 
 let changeAgents1 = [];
@@ -102,7 +102,7 @@ async function run() {
             //await page1.waitForTimeout(10000);
             console.log('BACKUP')
             try {
-                for(let el = 1; el < 50; el ++) {
+                for(let el = 1; el < 51; el ++) {
                     console.log(`Backing up ${el}`)
                     //await UpdateSheet("G4", `Backup ${el} Started`)
                     //select select agent button
@@ -465,8 +465,8 @@ async function Rename() {
     }
     
 }
-//run()
+run()
 //Rename()
-UploadFiles()
+//UploadFiles()
 //const result = findRemoveSync('./backup', { extensions: ['.zip'] })
 // console.log(result)

@@ -54,6 +54,9 @@
     "sequence-js": "^0.0.3",
     "sequential-async-foreach": "^1.0.4",
     "simple-text-search": "^1.1.5",
+    "socket.io": "^4.5.4",
+    "timezones-list": "^3.0.1",
+    "uuid": "^9.0.0",
     "xregexp": "^5.1.1",
     "xvfb": "^0.4.0"
   }

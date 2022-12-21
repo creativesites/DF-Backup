@@ -29,7 +29,7 @@ let ints1 = [7];
 let intToDel = [1];
 let entsToDel = [];
 let entsName = 'app-name';
-let ents = [14,16,22, 41]
+let ents = [41]
 let changeAgents = [
   '410-StocHyun-8549995374 [en]',
   '371-EnviHondV2-854-999-5365 [en]',
@@ -110,138 +110,13 @@ async function run(){
               for (let index = 1; index < 68; index++) {
               let el4 = index;
               console.log(`Updating ${el4} Entities`)
-            //   await page1.waitForTimeout(5000);
-              
-              
-                
-            // await page1.waitForTimeout(1000);
-            //     try {
-            //         let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
-            //         await page1.waitForTimeout(1500);
-            //         await nxt[0].click()
-            //        } catch (error) {
-            //         console.log(error)
-                    
-            //        } 
+           
             if(index === 1){
                 
+              
+                let e4 = 1
+                await page1.waitForTimeout(3000);
                 
-                for (let i = 0; i < 4; i++) {
-                let e4 = ents[i]
-                // if(i === 0){
-                //   console.log('hovering over entity')
-                
-                // //await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${ents[0]}]`, {timeout: 5000});
-                // await page1.waitForTimeout(1000);
-                // let dgf = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]`, {timeout: 5000});
-                // await dgf[0].hover()
-                
-    
-                
-                // await page1.waitForTimeout(2000);
-                // await page1.waitForTimeout(1000);
-                // console.log('after')
-                // console.log(e4)
-                // await page1.waitForTimeout(1000);
-                // await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                //     timeout: 5000
-                // });
-                // await page1.waitForTimeout(1000);
-                // let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                //     timeout: 5000
-                // });
-                // await ell1[0].click();
-                // }
-                if(i===0){
-                  e4 = 14
-                  await page1.waitForTimeout(3000);
-                  
-                  // try {
-                  //   let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
-                  //   await page1.waitForTimeout(1500);
-                  //   await nxt[0].click()
-                  //  } catch (error) {
-                  //   console.log(error)
-                    
-                  //  } 
-                  //  await page1.waitForTimeout(8000);
-                     console.log('hovering over entity')
-                
-                //await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${ents[0]}]`, {timeout: 5000});
-                await page1.waitForTimeout(1000);
-                let dgf = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]`, {timeout: 5000});
-                await dgf[0].hover()
-                console.log('after')
-                console.log(e4)
-                await page1.waitForTimeout(1000);
-                await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                    timeout: 5000
-                });
-                await page1.waitForTimeout(1000);
-                let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                    timeout: 5000
-                });
-                //console.log('clicking ONE')
-                await ell1[0].click();
-                await page1.waitForTimeout(2000);
-                }
-                if(i === 1){
-                  e4 = 16
-                  // try {
-                  //   let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
-                  //   await page1.waitForTimeout(1500);
-                  //   await nxt[0].click()
-                  //  } catch (error) {
-                  //   console.log(error)
-                    
-                  //  }
-                  //  await page1.waitForTimeout(8000)
-                  //  try {
-                  //   let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
-                  //   await page1.waitForTimeout(1500);
-                  //   await nxt[0].click()
-                  //  } catch (error) {
-                  //   console.log(error)
-                    
-                  //  }
-                   await page1.waitForTimeout(2000);
-                  await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                      timeout: 5000
-                  }); 
-                  await page1.waitForTimeout(1000);
-                  let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                      timeout: 5000
-                  });
-                  //console.log('clicking TWO')
-                  await ell1[0].click();
-                  await page1.waitForTimeout(2000);
-                }
-                if(i===2){
-                  e4 = 2
-                  try {
-                    let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
-                    await page1.waitForTimeout(1500);
-                    await nxt[0].click()
-                   } catch (error) {
-                    console.log(error)
-                    
-                   } 
-                  await page1.waitForTimeout(8000);
-                  await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                      timeout: 5000
-                  });
-                  await page1.waitForTimeout(1000);
-                  let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                      timeout: 5000
-                  });
-                  //console.log('clicking THREE')
-                  await ell1[0].click();
-                  await page1.waitForTimeout(2000);
-                }
-                if(i===3){
-                  e4 = 1
-                  await page1.waitForTimeout(1000);
-                console.log('after')
                 try {
                   let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
                   await page1.waitForTimeout(1500);
@@ -250,21 +125,36 @@ async function run(){
                   console.log(error)
                   
                  } 
-                await page1.waitForTimeout(8000);
-                console.log(e4)
-                await page1.waitForTimeout(1000);
-                await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                    timeout: 5000
-                });
-                await page1.waitForTimeout(1000);
-                let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
-                    timeout: 5000
-                });
-                await ell1[0].click();
-                await page1.waitForTimeout(2000);
-                }
-                
-              }
+                 await page1.waitForTimeout(8000);
+                 try {
+                  let nxt = await page1.$x('/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/div[2]/div/a[1]', {timeout: 15000});
+                  await page1.waitForTimeout(1500);
+                  await nxt[0].click()
+                 } catch (error) {
+                  console.log(error)
+                  
+                 } 
+                 await page1.waitForTimeout(8000);
+                   console.log('hovering over entity')
+              
+              //await page1.waitForXPath(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${ents[0]}]`, {timeout: 5000});
+              await page1.waitForTimeout(1000);
+              let dgf = await page1.$x(`/html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]`, {timeout: 5000});
+              await dgf[0].hover()
+              console.log('after')
+              console.log(e4)
+              await page1.waitForTimeout(1000);
+              await page1.waitForXPath(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                  timeout: 5000
+              });
+              await page1.waitForTimeout(1000);
+              let ell1 = await page1.$x(`html/body/div[1]/div[2]/div/div/div/section/div/div[3]/div/entities-page/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/custom-entities-list/div/ul/li[${e4}]/md-checkbox/div[1]`, {
+                  timeout: 5000
+              });
+              //console.log('clicking ONE')
+              await ell1[0].click();
+              await page1.waitForTimeout(2000);
+              
             }
               
               
